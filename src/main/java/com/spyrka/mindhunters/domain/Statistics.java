@@ -2,6 +2,7 @@ package com.spyrka.mindhunters.domain;
 
 
 import javax.persistence.*;
+import javax.validation.Valid;
 
 @NamedQueries({
         @NamedQuery(
@@ -34,6 +35,7 @@ public class Statistics {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "drink_id")
+    @Valid
     private Drink drink;
 
 

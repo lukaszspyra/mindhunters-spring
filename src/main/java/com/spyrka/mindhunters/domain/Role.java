@@ -1,6 +1,7 @@
 package com.spyrka.mindhunters.domain;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ public class Role {
     private String name;
 
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+    @Valid
     private List<User> users = new ArrayList<>();
 
     public Long getId() {

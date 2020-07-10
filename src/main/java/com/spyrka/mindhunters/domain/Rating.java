@@ -1,6 +1,7 @@
 package com.spyrka.mindhunters.domain;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 
 @NamedQueries({
         @NamedQuery(
@@ -23,6 +24,7 @@ public class Rating {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "drink_id", unique = true)
+    @Valid
     private Drink drink;
 
     public Long getId() {

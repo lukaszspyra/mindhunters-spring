@@ -1,6 +1,8 @@
 package com.spyrka.mindhunters.domain;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @NamedQueries({
         @NamedQuery(
@@ -32,14 +34,20 @@ public class DrinkIngredient {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "measure_id")
+    @Valid
+    @NotNull
     private Measure measure;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ingredient_id")
+    @Valid
+    @NotNull
     private Ingredient ingredient;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "drink_id")
+    @Valid
+    @NotNull
     private Drink drinkId;
 
     public Long getId() {

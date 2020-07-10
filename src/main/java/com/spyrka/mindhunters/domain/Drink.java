@@ -1,6 +1,8 @@
 package com.spyrka.mindhunters.domain;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -106,25 +108,33 @@ public class Drink {
     @NotNull
     private String drinkName;
 
+
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @NotNull
+    @Valid
     private Category category;
 
     @Column(name = "alcohol_status")
     @NotNull
     private String alcoholStatus;
 
-    @NotNull
+
     @Column(columnDefinition = "TEXT")
+    @NotNull
     private String recipe;
 
     @OneToMany(cascade = {CascadeType.ALL, CascadeType.MERGE}, mappedBy = "drinkId", fetch = FetchType.LAZY)
+    @NotNull
+    @Valid
     private List<DrinkIngredient> drinkIngredients = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "drinks")
+    @Valid
     private List<User> users = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "drink", fetch = FetchType.LAZY)
+    @Valid
     private List<Statistics> statisticsList = new ArrayList<>();
 
     private Long parentId;
@@ -137,6 +147,7 @@ public class Drink {
 
     private boolean isApproved;
 
+    @Email
     private String confirmUserEmail;
 
     public Long getId() {

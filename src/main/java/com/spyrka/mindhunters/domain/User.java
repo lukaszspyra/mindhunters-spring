@@ -2,6 +2,8 @@ package com.spyrka.mindhunters.domain;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,16 +42,20 @@ public class User {
     private String name;
 
     @NotNull
+    @Email
     private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id")
+    @Valid
+    @NotNull
     private Role role;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "favourite",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "drink_id", referencedColumnName = "id"))
+    @Valid
     private List<Drink> drinks = new ArrayList<>();
 
     public Long getId() {

@@ -3,10 +3,12 @@ package com.spyrka.mindhunters.services.mappers;
 
 import com.spyrka.mindhunters.models.Ingredient;
 import com.spyrka.mindhunters.models.dto.IngredientView;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class IngredientMapper {
 
     public IngredientView toView(Ingredient ingredient) {

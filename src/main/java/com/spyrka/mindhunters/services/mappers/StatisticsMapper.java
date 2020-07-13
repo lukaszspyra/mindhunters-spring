@@ -1,12 +1,23 @@
 package com.spyrka.mindhunters.services.mappers;
 
 
+import com.spyrka.mindhunters.models.Drink;
+import com.spyrka.mindhunters.models.Statistics;
+import com.spyrka.mindhunters.models.dto.FullDrinkView;
+import com.spyrka.mindhunters.models.dto.StatisticsView;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
 public class StatisticsMapper {
 
-   /* @Inject
+    @Autowired
     private CategoryMapper categoryMapper;
 
-    @Inject
+    @Autowired
     private FullDrinkMapper fullDrinkMapper;
 
     public Statistics toEntity(FullDrinkView fullDrinkView) {
@@ -41,5 +52,5 @@ public class StatisticsMapper {
         }
 
         return statisticsViews;
-    }*/
+    }
 }

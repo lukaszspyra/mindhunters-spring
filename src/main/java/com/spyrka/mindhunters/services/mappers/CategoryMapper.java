@@ -2,10 +2,12 @@ package com.spyrka.mindhunters.services.mappers;
 
 import com.spyrka.mindhunters.models.Category;
 import com.spyrka.mindhunters.models.dto.CategoryView;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class CategoryMapper {
 
 

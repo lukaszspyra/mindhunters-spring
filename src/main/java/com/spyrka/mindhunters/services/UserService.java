@@ -8,10 +8,12 @@ import com.spyrka.mindhunters.models.dto.UserView;
 import com.spyrka.mindhunters.repositories.DrinkRepository;
 import com.spyrka.mindhunters.repositories.RoleRepository;
 import com.spyrka.mindhunters.repositories.UserRepository;
+import com.spyrka.mindhunters.services.mappers.FullDrinkMapper;
 import com.spyrka.mindhunters.services.mappers.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,7 @@ import java.util.List;
 public class UserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class.getName());
+    private static final Integer PAGE_SIZE = 20;
 
     @Autowired
     UserRepository userRepository;
@@ -33,6 +36,9 @@ public class UserService {
 
     @Autowired
     DrinkRepository drinkRepository;
+
+    @Autowired
+    FullDrinkMapper fullDrinkMapper;
 
 
     @Transactional
@@ -87,7 +93,7 @@ public class UserService {
 
     }
 
-/*    public List<FullDrinkView> favouritesList(String email) {
+    public List<FullDrinkView> favouritesList(String email) {
 
         User user = userRepository.findByEmail(email).orElseThrow();
 
@@ -99,7 +105,7 @@ public class UserService {
         int startPosition = (pageNumber - 1) * PAGE_SIZE;
         int endPosition = PAGE_SIZE;
 
-        List<Drink> drinks = userRepository.findFavouritesList(email, startPosition, endPosition);
+        List<Drink> drinks = userRepository.findFavouritesList(email, PageRequest.of(startPosition, endPosition));
 
         return fullDrinkMapper.toView(drinks);
 
@@ -114,6 +120,6 @@ public class UserService {
 
     public int getMaxPageNumber(String querySize) {
         return (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
-    }*/
+    }
 
 }

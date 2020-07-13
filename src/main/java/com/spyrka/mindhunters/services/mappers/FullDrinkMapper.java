@@ -1,17 +1,28 @@
 package com.spyrka.mindhunters.services.mappers;
 
 
+import com.spyrka.mindhunters.models.Drink;
+import com.spyrka.mindhunters.models.dto.FullDrinkView;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
+@Service
 public class FullDrinkMapper {
 
-   /* @Inject
+    @Autowired
     private DrinkIgredientMapper drinkIgredientMapper;
 
-    @Inject
+    @Autowired
     private StatisticsMapper statisticsMapper;
 
-    @Inject
+    @Autowired
     private CategoryMapper categoryMapper;
 
     @Transactional
@@ -60,5 +71,5 @@ public class FullDrinkMapper {
         drink.setDate(LocalDateTime.now());
         drink.setApproved(true);  //TODO : change mocked true
         return drink;
-    }*/
+    }
 }

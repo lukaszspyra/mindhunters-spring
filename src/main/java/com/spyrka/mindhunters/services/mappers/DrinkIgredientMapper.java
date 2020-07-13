@@ -1,12 +1,25 @@
 package com.spyrka.mindhunters.services.mappers;
 
 
+import com.spyrka.mindhunters.models.DrinkIngredient;
+import com.spyrka.mindhunters.models.Ingredient;
+import com.spyrka.mindhunters.models.Measure;
+import com.spyrka.mindhunters.models.dto.DrinkIngredientView;
+import com.spyrka.mindhunters.services.IngredientService;
+import com.spyrka.mindhunters.services.MeasureService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Component
 public class DrinkIgredientMapper {
 
-    /*@Inject
+    @Autowired
     private IngredientService ingredientService;
 
-    @Inject
+    @Autowired
     private MeasureService measureService;
 
 
@@ -37,5 +50,5 @@ public class DrinkIgredientMapper {
         drinkIngredient.setMeasure(measure);
 
         return drinkIngredient;
-    }*/
+    }
 }

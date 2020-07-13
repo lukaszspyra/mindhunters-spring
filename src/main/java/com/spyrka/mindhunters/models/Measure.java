@@ -1,4 +1,4 @@
-package com.spyrka.mindhunters.domain;
+package com.spyrka.mindhunters.models;
 
 
 import javax.persistence.*;

@@ -3,9 +3,7 @@ package com.spyrka.mindhunters.models.json;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.spyrka.mindhunters.parsers.JsonDrinkDeserializer;
-import com.spyrka.mindhunters.parsers.JsonDrinkSerializer;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +17,6 @@ import java.util.Objects;
         "strInstructionsZH-HANT", "strDrinkThumb", "strCreativeCommonsConfirmed"})
 
 @JsonDeserialize(using = JsonDrinkDeserializer.class)
-@JsonSerialize(using = JsonDrinkSerializer.class)
 public class DrinkJson {
 
     @JsonProperty("idDrink")

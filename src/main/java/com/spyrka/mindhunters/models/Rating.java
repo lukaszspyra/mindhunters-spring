@@ -6,7 +6,7 @@ import javax.validation.Valid;
 @NamedQueries({
         @NamedQuery(
                 name = "Rating.findByDrinkId",
-                query = "SELECT r FROM Rating r WHERE r.drink.id = :drinkId")
+                query = "SELECT r FROM Rating r WHERE r.drink.id = ?1")
 })
 
 

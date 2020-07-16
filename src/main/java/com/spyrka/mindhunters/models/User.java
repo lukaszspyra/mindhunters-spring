@@ -11,20 +11,16 @@ import java.util.List;
 
 @NamedQueries({
         @NamedQuery(
-                name = "User.findAll",
-                query = "SELECT u FROM User u"
-        ),
-        @NamedQuery(
                 name = "User.findFavouritesList",
                 query = "SELECT u.drinks FROM User u WHERE u.email like ?1"
         ),
         @NamedQuery(
                 name = "User.countPagesFindFavouritesList",
-                query = "SELECT COUNT (ud) FROM User u JOIN u.drinks ud WHERE u.email like ?1"
+                query = "SELECT COUNT (ud) FROM User u JOIN u.drinks ud WHERE u.email LIKE ?1"
         ),
         @NamedQuery(
                 name = "User.findByEmail",
-                query = "SELECT u FROM User u WHERE u.email LIKE:email"
+                query = "SELECT u FROM User u WHERE u.email LIKE ?1"
         )
 
 })

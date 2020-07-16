@@ -4,12 +4,6 @@ package com.spyrka.mindhunters.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@NamedQueries({
-        @NamedQuery(
-                name = "Measure.getByQuantity",
-                query = "SELECT m FROM Measure m where m.quantity= :quantity"
-        )
-})
 
 @Entity
 @Table(name = "measure")

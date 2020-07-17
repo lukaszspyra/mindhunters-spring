@@ -32,7 +32,7 @@ import java.util.Objects;
 
         @NamedQuery(
                 name = "Drink.countDrinksByAlcoholStatus",
-                query = "select count (d) from Drink d where d.alcoholStatus in (:alcoholStatus) and d.isApproved = true"
+                query = ""
         ),
 
         @NamedQuery(

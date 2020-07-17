@@ -7,6 +7,7 @@ import com.spyrka.mindhunters.models.dto.IngredientView;
 import com.spyrka.mindhunters.repositories.DrinkRepository;
 import com.spyrka.mindhunters.services.mappers.FullDrinkMapper;
 import com.spyrka.mindhunters.services.mappers.IngredientMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class DrinkService {
@@ -90,64 +92,22 @@ public class DrinkService {
         return fullDrinkMapper.toView(drinks);
     }
 
-
-
-
-   /* @EJB
-    private DrinkRepository drinkRepository;
-
-    @EJB
-    private AdminManagementRecipeService adminManagementRecipeService;
-
-    @EJB
-    private IngredientService ingredientService;
-
-    @EJB
-    private UserService userService;
-
-    public int countPagesByIngredients(List<IngredientView> ingredientViews) {
-        final List<Ingredient> ingredients = ingredientMapper.toEntity(ingredientViews);
-        int maxPageNumber = drinkRepository.countPagesByIngredients(ingredients);
-        return maxPageNumber;
-    }
-
-    public int countPagesFindAll() {
-        int maxPageNumber = drinkRepository.countPagesFindAll();
-        return maxPageNumber;
-    }
-
-
-    public int countPagesByCategories(List<Long> category) {
-        int maxPageNumber = drinkRepository.countPagesByCategories(category);
-        return maxPageNumber;
-
-    }
-
     public List<FullDrinkView> findByAlcoholStatus(List<String> alcoholStatus, int pageNumber) {
         int startPosition = (pageNumber - 1) * PAGE_SIZE;
-        int endPosition = PAGE_SIZE;
 
-        List<Drink> drinks = drinkRepository.findByAlcoholStatus(alcoholStatus, startPosition, endPosition);
+        Pageable pageable = PageRequest.of(startPosition, PAGE_SIZE);
+
+        List<Drink> drinks = drinkRepository.findByAlcoholStatus(alcoholStatus, pageable);
         return fullDrinkMapper.toView(drinks);
-    }
-
-    public int countPagesByAlcoholStatus(List<String> alcoholStatus) {
-        int maxPageNumber = drinkRepository.countPagesByAlcoholStatus(alcoholStatus);
-        return maxPageNumber;
-
     }
 
     public List<FullDrinkView> findByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus, int pageNumber) {
         int startPosition = (pageNumber - 1) * PAGE_SIZE;
-        int endPosition = PAGE_SIZE;
 
-        List<Drink> drinks = drinkRepository.findByCategoriesAndAlcoholStatus(category, alcoholStatus, startPosition, endPosition);
+        Pageable pageable = PageRequest.of(startPosition, PAGE_SIZE);
+
+        List<Drink> drinks = drinkRepository.findByCategoriesAndAlcoholStatus(category, alcoholStatus, pageable);
         return fullDrinkMapper.toView(drinks);
-    }
-
-    public int countPagesByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus) {
-        int maxPageNumber = drinkRepository.countPagesByCategoriesAndAlcoholStatus(category, alcoholStatus);
-        return maxPageNumber;
     }
 
     public SearchType checkingSearchingCase(Map<String, String[]> searchParam, int currentPage) {
@@ -263,6 +223,56 @@ public class DrinkService {
                 .map(s -> Long.valueOf(s))
                 .collect(Collectors.toList());
     }
+
+    public int countPagesByAlcoholStatus(List<String> alcoholStatus) {
+
+
+        int querySize = drinkRepository.countPagesByAlcoholStatus(alcoholStatus);
+        return (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
+
+    }
+
+/*    public int countPagesByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus) {
+        int maxPageNumber = drinkRepository.countPagesByCategoriesAndAlcoholStatus(category, alcoholStatus);
+        return maxPageNumber;
+    }*/
+
+
+   /* @EJB
+    private DrinkRepository drinkRepository;
+
+    @EJB
+    private AdminManagementRecipeService adminManagementRecipeService;
+
+    @EJB
+    private IngredientService ingredientService;
+
+    @EJB
+    private UserService userService;
+
+    public int countPagesByIngredients(List<IngredientView> ingredientViews) {
+        final List<Ingredient> ingredients = ingredientMapper.toEntity(ingredientViews);
+        int maxPageNumber = drinkRepository.countPagesByIngredients(ingredients);
+        return maxPageNumber;
+    }
+
+    public int countPagesFindAll() {
+        int maxPageNumber = drinkRepository.countPagesFindAll();
+        return maxPageNumber;
+    }
+
+
+    public int countPagesByCategories(List<Long> category) {
+        int maxPageNumber = drinkRepository.countPagesByCategories(category);
+        return maxPageNumber;
+
+    }
+
+
+
+
+
+
 
 
     public static int getMaxPageNumber(String querySize) {

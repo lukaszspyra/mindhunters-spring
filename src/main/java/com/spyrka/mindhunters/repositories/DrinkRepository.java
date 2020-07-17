@@ -71,6 +71,9 @@ public interface DrinkRepository extends JpaRepository<Drink, Long> {
     List<Drink> findNewDrinksToApprove(List<String> actions);
 
 
+    @Query("SELECT COUNT (d) FROM Drink d WHERE d.alcoholStatus IN ( ?1 ) AND d.isApproved = true")
+    int countPagesByAlcoholStatus(List<String> alcoholStatus);
+
 
 
 
@@ -81,17 +84,7 @@ TODO remove these when complete drinkService methods implementations
 private static final Integer LIVE_SEARCH_LIMIT = 10;
 
 
-        @Override
-    public int countPagesByAlcoholStatus(List<String> alcoholStatus) {
-        Query query = entityManager.createNamedQuery("Drink.countDrinksByAlcoholStatus");
 
-        query.setParameter("alcoholStatus", alcoholStatus);
-        String querySize = query.getSingleResult().toString();
-
-        int maxPageNumber = drinkService.getMaxPageNumber(querySize);
-        return maxPageNumber;
-
-    }
 
 
     @Override

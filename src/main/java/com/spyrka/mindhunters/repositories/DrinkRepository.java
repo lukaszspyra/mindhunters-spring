@@ -20,7 +20,7 @@ public interface DrinkRepository extends JpaRepository<Drink, Long> {
     List getDrinksInAllCategories();
 
 
-    //findDrinksByName + liveSearchDrinksByName
+    //liveSearchDrinksByName
     @Query("SELECT d FROM Drink d WHERE LOWER( d.drinkName) LIKE LOWER( ?1 ) and d.isApproved = true")
     List<Drink> findDrinksByDrinkNameContaining(String partialDrinkName, Pageable pageable);
 

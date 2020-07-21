@@ -31,15 +31,6 @@ import java.util.Objects;
         ),
 
         @NamedQuery(
-                name = "Drink.countDrinksByAlcoholStatus",
-                query = ""
-        ),
-
-        @NamedQuery(
-                name = "Drink.countDrinksByCategoriesAndAlcoholStatus",
-                query = "select count (d) from Drink d where d.alcoholStatus  in (:alcoholStatus) and d.category.id in (:category) and d.isApproved = true"
-        ),
-        @NamedQuery(
                 name = "Drink.findAllByCategories",
                 query = "select d from Drink d where d.category.name in :category  and d.isApproved = true"
         ),

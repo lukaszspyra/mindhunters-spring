@@ -56,17 +56,10 @@ public interface DrinkRepository extends JpaRepository<Drink, Long> {
     void deleteIngredientsFromDrink(Long drinkId);
 
 
-    //add "edit" as parameter in service layer
     @Query("SELECT d FROM Drink d where d.isApproved = false AND d.manageAction LIKE ?1")
-    List<Drink> findEditedDrinksToApprove(String action);
+    List<Drink> findOldDrinksToApprove(String action);
 
 
-    //add "delete" as parameter in service layer
-    @Query("SELECT d FROM Drink d where d.isApproved = false AND d.manageAction LIKE ?1")
-    List<Drink> findDeletedDrinksToApprove(String action);
-
-
-    //add List.of("edit", "delete") as parameter in service layer
     @Query("SELECT d FROM Drink d where d.isApproved = false AND d.manageAction NOT IN (?1)")
     List<Drink> findNewDrinksToApprove(List<String> actions);
 
@@ -80,7 +73,7 @@ public interface DrinkRepository extends JpaRepository<Drink, Long> {
     int countPagesByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus);
 
 
-    @Query("SELECT COUNT (d) FROM Drink d WHERE d.category.id IN (:category) AND d.isApproved = true")
+    @Query("SELECT COUNT (d) FROM Drink d WHERE d.category.id IN ( ?1 ) AND d.isApproved = true")
     int countPagesByCategories(List<Long> category);
 
 
@@ -88,17 +81,16 @@ public interface DrinkRepository extends JpaRepository<Drink, Long> {
     int countPagesFindAll();
 
 
+    //CountPagesByName - SearchType Service
+    @Query("SELECT COUNT(d) FROM Drink d WHERE LOWER (d.drinkName) LIKE LOWER( ?1 ) and d.isApproved = " +
+            "true")
+    int countPagesByDrinkNameContaining(String partialDrinkName);
+
+
 /*ALL METHODS HERE USED FOR PAGINATION IN JEE - PROBABLY NOT NEEDED IN SPRING
 TODO remove these when complete drinkService methods implementations
 
 private static final Integer LIVE_SEARCH_LIMIT = 10;
-
-
-
-
-
-
-
 
 
      @Override
@@ -108,27 +100,8 @@ private static final Integer LIVE_SEARCH_LIMIT = 10;
     }
 
     @Override
-    public int countPagesByName(String partialDrinkName) {
-        Query query = entityManager.createNamedQuery("Drink.countDrinksByPartialName");
-        query.setParameter("partialDrinkName", "%" + partialDrinkName + "%");
-        String querySize = query.getSingleResult().toString();
 
-        int maxPageNumber = drinkService.getMaxPageNumber(querySize);
-
-        return maxPageNumber;
 
     }
-
-    @Override
-    public int countPagesByIngredients(List<Ingredient> ingredients) {
-        Query query = entityManager.createNamedQuery("Drink.countByIngredients");
-        query.setParameter("ingredients", ingredients);
-        String querySize = query.getSingleResult().toString();
-
-        int maxPageNumber = drinkService.getMaxPageNumber(querySize);
-
-        return maxPageNumber;
-    }
-
     */
 }

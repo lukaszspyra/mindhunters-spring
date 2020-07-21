@@ -227,43 +227,67 @@ public class DrinkService {
     public int countPagesByAlcoholStatus(List<String> alcoholStatus) {
         int querySize = drinkRepository.countPagesByAlcoholStatus(alcoholStatus);
 
-        return (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
+        return getMaxPageNumber(querySize);
 
     }
 
     public int countPagesByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus) {
         int querySize = drinkRepository.countPagesByCategoriesAndAlcoholStatus(category, alcoholStatus);
 
-        return (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
+        return getMaxPageNumber(querySize);
     }
 
 
     public int countPagesByCategories(List<Long> category) {
         int querySize = drinkRepository.countPagesByCategories(category);
 
-        return (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
+        return getMaxPageNumber(querySize);
     }
 
 
     public int countPagesFindAll() {
         int querySize = drinkRepository.countPagesFindAll();
 
+        return getMaxPageNumber(querySize);
+    }
+
+
+    public List<FullDrinkView> findDrinksToApprove() {
+
+        List<Drink> drinks = drinkRepository.findDrinksToApprove();
+        return fullDrinkMapper.toView(drinks);
+    }
+
+
+    public List<FullDrinkView> findDeletedDrinksToApprove() {
+
+        List<Drink> drinks = drinkRepository.findOldDrinksToApprove("DELETE");
+        return fullDrinkMapper.toView(drinks);
+    }
+
+
+    public List<FullDrinkView> findEditedDrinksToApprove() {
+
+        List<Drink> drinks = drinkRepository.findOldDrinksToApprove("EDIT");
+        return fullDrinkMapper.toView(drinks);
+    }
+
+    public List<FullDrinkView> findNewDrinksToApprove() {
+
+        List<Drink> drinks = drinkRepository.findNewDrinksToApprove(List.of("EDIT", "DELETE"));
+        return fullDrinkMapper.toView(drinks);
+    }
+
+    private int getMaxPageNumber(int querySize) {
         return (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
     }
 
 
+    public void save(Drink drink) {
+        drinkRepository.save(drink);
+    }
 
-   /* @EJB
-    private DrinkRepository drinkRepository;
-
-    @EJB
-    private AdminManagementRecipeService adminManagementRecipeService;
-
-    @EJB
-    private IngredientService ingredientService;
-
-    @EJB
-    private UserService userService;
+   /*
 
     public int countPagesByIngredients(List<IngredientView> ingredientViews) {
         final List<Ingredient> ingredients = ingredientMapper.toEntity(ingredientViews);
@@ -272,21 +296,7 @@ public class DrinkService {
     }
 
 
-
-
-
-
-
-
-    public static int getMaxPageNumber(String querySize) {
-        return (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
-    }*/
-
-    public void save(Drink drink) {
-        drinkRepository.save(drink);
-    }
-
-/*    public boolean deleteDrinkById(Long id) {
+    public boolean deleteDrinkById(Long id) {
 
         return adminManagementRecipeService.deleteDrinkById(id);
     }
@@ -295,28 +305,6 @@ public class DrinkService {
         return adminManagementRecipeService.addOrUpdateDrink(id, updatedDrink, contextHolder);
     }
 
-    public List<FullDrinkView> findDrinksToApprove() {
-
-        List<Drink> drinks = drinkRepository.findDrinksToApprove();
-        return fullDrinkMapper.toView(drinks);
-    }
-
-    public List<FullDrinkView> findDeletedDrinksToApprove() {
-
-        List<Drink> drinks = drinkRepository.findDeletedDrinksToApprove();
-        return fullDrinkMapper.toView(drinks);
-    }
-
-    public List<FullDrinkView> findEditedDrinksToApprove() {
-
-        List<Drink> drinks = drinkRepository.findEditedDrinksToApprove();
-        return fullDrinkMapper.toView(drinks);
-    }
-
-    public List<FullDrinkView> findNewDrinksToApprove() {
-
-        List<Drink> drinks = drinkRepository.findNewDrinksToApprove();
-        return fullDrinkMapper.toView(drinks);
-    }*/
+*/
 
 }

@@ -17,15 +17,6 @@ import java.util.Objects;
                         ":ingredients and d.isApproved = true"),
 
         @NamedQuery(
-                name = "Drink.countDrinksByPartialName",
-                query = "SELECT COUNT(d) FROM Drink d WHERE LOWER( d.drinkName) LIKE LOWER(:partialDrinkName) and d.isApproved = true"),
-
-        @NamedQuery(
-                name = "Drink.countFindAll",
-                query = ""
-        ),
-
-        @NamedQuery(
                 name = "Drink.findAllByCategories",
                 query = "select d from Drink d where d.category.name in :category  and d.isApproved = true"
         ),

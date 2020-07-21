@@ -238,6 +238,13 @@ public class DrinkService {
     }
 
 
+    public int countPagesByCategories(List<Long> category) {
+        int querySize = drinkRepository.countPagesByCategories(category);
+
+        return (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
+    }
+
+
 
    /* @EJB
     private DrinkRepository drinkRepository;
@@ -263,11 +270,7 @@ public class DrinkService {
     }
 
 
-    public int countPagesByCategories(List<Long> category) {
-        int maxPageNumber = drinkRepository.countPagesByCategories(category);
-        return maxPageNumber;
 
-    }
 
 
 

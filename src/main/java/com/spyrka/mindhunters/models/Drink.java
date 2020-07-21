@@ -26,11 +26,6 @@ import java.util.Objects;
         ),
 
         @NamedQuery(
-                name = "Drink.CountDrinksByCategories",
-                query = "select count (d) from Drink d where d.category.id in (:category) and d.isApproved = true"
-        ),
-
-        @NamedQuery(
                 name = "Drink.findAllByCategories",
                 query = "select d from Drink d where d.category.name in :category  and d.isApproved = true"
         ),

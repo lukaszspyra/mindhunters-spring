@@ -22,7 +22,7 @@ import java.util.Objects;
 
         @NamedQuery(
                 name = "Drink.countFindAll",
-                query = "SELECT count (d) FROM Drink d where d.isApproved = true"
+                query = ""
         ),
 
         @NamedQuery(

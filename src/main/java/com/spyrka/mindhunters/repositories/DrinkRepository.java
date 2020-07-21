@@ -84,6 +84,8 @@ public interface DrinkRepository extends JpaRepository<Drink, Long> {
     int countPagesByCategories(List<Long> category);
 
 
+    @Query("SELECT COUNT (d) FROM Drink d WHERE d.isApproved = true")
+    int countPagesFindAll();
 
 
 /*ALL METHODS HERE USED FOR PAGINATION IN JEE - PROBABLY NOT NEEDED IN SPRING
@@ -93,15 +95,7 @@ private static final Integer LIVE_SEARCH_LIMIT = 10;
 
 
 
-        @Override
-    public int countPagesFindAll() {
-        Query query = entityManager.createNamedQuery("Drink.countFindAll");
 
-        String querySize = query.getSingleResult().toString();
-        int maxPageNumber = drinkService.getMaxPageNumber(querySize);
-        return maxPageNumber;
-
-    }
 
 
 

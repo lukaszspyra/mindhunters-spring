@@ -80,6 +80,11 @@ public interface DrinkRepository extends JpaRepository<Drink, Long> {
     int countPagesByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus);
 
 
+    @Query("SELECT COUNT (d) FROM Drink d WHERE d.category.id IN (:category) AND d.isApproved = true")
+    int countPagesByCategories(List<Long> category);
+
+
+
 
 /*ALL METHODS HERE USED FOR PAGINATION IN JEE - PROBABLY NOT NEEDED IN SPRING
 TODO remove these when complete drinkService methods implementations
@@ -99,15 +104,7 @@ private static final Integer LIVE_SEARCH_LIMIT = 10;
     }
 
 
-    @Override
-    public int countPagesByCategories(List<Long> category) {
-        Query query = entityManager.createNamedQuery("Drink.CountDrinksByCategories");
 
-        query.setParameter("category", category);
-        String querySize = query.getSingleResult().toString();
-        int maxPageNumber = drinkService.getMaxPageNumber(querySize);
-        return maxPageNumber;
-    }
 
 
      @Override

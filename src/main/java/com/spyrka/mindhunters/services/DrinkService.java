@@ -225,17 +225,18 @@ public class DrinkService {
     }
 
     public int countPagesByAlcoholStatus(List<String> alcoholStatus) {
-
-
         int querySize = drinkRepository.countPagesByAlcoholStatus(alcoholStatus);
+
         return (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
 
     }
 
-/*    public int countPagesByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus) {
-        int maxPageNumber = drinkRepository.countPagesByCategoriesAndAlcoholStatus(category, alcoholStatus);
-        return maxPageNumber;
-    }*/
+    public int countPagesByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus) {
+        int querySize = drinkRepository.countPagesByCategoriesAndAlcoholStatus(category, alcoholStatus);
+
+        return (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
+    }
+
 
 
    /* @EJB
@@ -267,10 +268,6 @@ public class DrinkService {
         return maxPageNumber;
 
     }
-
-
-
-
 
 
 

@@ -245,6 +245,13 @@ public class DrinkService {
     }
 
 
+    public int countPagesFindAll() {
+        int querySize = drinkRepository.countPagesFindAll();
+
+        return (int) Math.ceil((Double.valueOf(querySize) / PAGE_SIZE));
+    }
+
+
 
    /* @EJB
     private DrinkRepository drinkRepository;
@@ -264,10 +271,6 @@ public class DrinkService {
         return maxPageNumber;
     }
 
-    public int countPagesFindAll() {
-        int maxPageNumber = drinkRepository.countPagesFindAll();
-        return maxPageNumber;
-    }
 
 
 

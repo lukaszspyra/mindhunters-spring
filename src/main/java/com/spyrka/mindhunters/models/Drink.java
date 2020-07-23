@@ -12,11 +12,6 @@ import java.util.Objects;
 @NamedQueries({
 
         @NamedQuery(
-                name = "Drink.countByIngredients",
-                query = "SELECT COUNT(DISTINCT d.id) FROM Drink d JOIN d.drinkIngredients di WHERE di.ingredient IN " +
-                        ":ingredients and d.isApproved = true"),
-
-        @NamedQuery(
                 name = "Drink.findAllByCategories",
                 query = "select d from Drink d where d.category.name in :category  and d.isApproved = true"
         ),

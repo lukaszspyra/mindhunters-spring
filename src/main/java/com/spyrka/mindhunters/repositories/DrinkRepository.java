@@ -81,10 +81,14 @@ public interface DrinkRepository extends JpaRepository<Drink, Long> {
     int countPagesFindAll();
 
 
-    //CountPagesByName - SearchType Service
     @Query("SELECT COUNT(d) FROM Drink d WHERE LOWER (d.drinkName) LIKE LOWER( ?1 ) and d.isApproved = " +
             "true")
     int countPagesByDrinkNameContaining(String partialDrinkName);
+
+
+    @Query("SELECT COUNT(DISTINCT d.id) FROM Drink d JOIN d.drinkIngredients di WHERE di.ingredient IN ?1 and d" +
+            ".isApproved = true")
+    int countPagesByIngredients(List<Ingredient> ingredients);
 
 
 /*ALL METHODS HERE USED FOR PAGINATION IN JEE - PROBABLY NOT NEEDED IN SPRING
@@ -99,9 +103,5 @@ private static final Integer LIVE_SEARCH_LIMIT = 10;
         entityManager.merge(updatedDrink);
     }
 
-    @Override
-
-
-    }
     */
 }

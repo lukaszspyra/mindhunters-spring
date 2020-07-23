@@ -287,13 +287,17 @@ public class DrinkService {
         drinkRepository.save(drink);
     }
 
-   /*
 
     public int countPagesByIngredients(List<IngredientView> ingredientViews) {
         final List<Ingredient> ingredients = ingredientMapper.toEntity(ingredientViews);
-        int maxPageNumber = drinkRepository.countPagesByIngredients(ingredients);
-        return maxPageNumber;
+
+        int querySize = drinkRepository.countPagesByIngredients(ingredients);
+        return getMaxPageNumber(querySize);
     }
+
+   /*
+
+
 
 
     public boolean deleteDrinkById(Long id) {

@@ -3,6 +3,8 @@ package com.spyrka.mindhunters.services;
 
 import com.spyrka.mindhunters.models.dto.FullDrinkView;
 import com.spyrka.mindhunters.models.dto.IngredientView;
+import com.spyrka.mindhunters.repositories.DrinkRepository;
+import com.spyrka.mindhunters.services.validator.UserInputValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class SearchTypeService {
 
     @Autowired
     private DrinkService drinkService;
+
+    @Autowired
+    private DrinkRepository drinkRepository;
 
     @Autowired
     private IngredientService ingredientService;
@@ -116,7 +121,7 @@ public class SearchTypeService {
         }
 
         partialDrinkName = userInputValidator.removeExtraSpaces(partialDrinkName);
-        maxPage = drinkService.countPagesByName(partialDrinkName);
+        maxPage = drinkRepository.countPagesByDrinkNameContaining(partialDrinkName);
 
         currentPage = userInputValidator.compareCurrentPageWithMaxPage(currentPage, maxPage);
 

@@ -1,6 +1,7 @@
 package com.spyrka.mindhunters.repositories;
 
 import com.spyrka.mindhunters.models.Ingredient;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.validation.constraints.NotNull;
@@ -12,13 +13,6 @@ public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
 
     Ingredient findByName(@NotNull String name);
 
-/*    @Override
-    public List<Ingredient> liveSearchIngredientsByName(String partialIngredientName) {
-        Query query = entityManager.createNamedQuery("Ingredient.findIngredientsByPartialName");
-        query.setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false);
+    List<Ingredient> findTop10ByNameContaining(@NotNull String name, Pageable pageable);
 
-        query.setMaxResults(LIVE_SEARCH_LIMIT);
-        query.setParameter("partialIngredientName", "%" + partialIngredientName + "%");
-        return query.getResultList();
-    }*/
 }

@@ -18,7 +18,6 @@ public interface DrinkRepository extends JpaRepository<Drink, Long> {
     List getDrinksInAllCategories();
 
 
-    //liveSearchDrinksByName
     @Query("SELECT d FROM Drink d WHERE LOWER( d.drinkName) LIKE LOWER( ?1 ) and d.isApproved = true")
     List<Drink> findDrinksByDrinkNameContaining(String partialDrinkName, Pageable pageable);
 
@@ -92,7 +91,7 @@ public interface DrinkRepository extends JpaRepository<Drink, Long> {
 /*ALL METHODS HERE USED FOR PAGINATION IN JEE - PROBABLY NOT NEEDED IN SPRING
 TODO remove these when complete drinkService methods implementations
 
-private static final Integer LIVE_SEARCH_LIMIT = 10;
+
 
 
     */

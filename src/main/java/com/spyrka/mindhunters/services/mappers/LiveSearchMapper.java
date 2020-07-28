@@ -7,10 +7,12 @@ import com.spyrka.mindhunters.models.dto.DrinkLiveSearchView;
 import com.spyrka.mindhunters.models.dto.IngredientView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class LiveSearchMapper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LiveSearchMapper.class.getName());

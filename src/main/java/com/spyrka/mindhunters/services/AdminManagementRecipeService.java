@@ -5,6 +5,7 @@ import com.spyrka.mindhunters.context.ContextHolder;
 import com.spyrka.mindhunters.models.*;
 import com.spyrka.mindhunters.repositories.DrinkRepository;
 import com.spyrka.mindhunters.repositories.RatingRepository;
+import com.spyrka.mindhunters.repositories.StatisticsRepository;
 import com.spyrka.mindhunters.services.mappers.FullDrinkMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +28,7 @@ public class AdminManagementRecipeService {
     private DrinkRepository drinkRepository;
 
     @Autowired
-    private StatisticsRepositoryBean statisticsRepositoryBean;
+    private StatisticsRepository statisticsRepository;
 
     @Autowired
     private MeasureService measureService;
@@ -39,14 +40,11 @@ public class AdminManagementRecipeService {
     private RatingRepository ratingRepository;
 
     @Autowired
-    private FullDrinkMapper fullDrinkMapper;
-
-    @Autowired
     CategoryService categoryService;
 
     @Transactional
     public boolean proposeDeleteDrink(Long id, String email){
-        Drink existingDrink = drinkRepository.findDrinkById(id);
+        Drink existingDrink = drinkRepository.findById(id).get();
         Drink drinkToBeDeleted = new Drink();
 
         if (existingDrink == null){
@@ -115,25 +113,24 @@ public class AdminManagementRecipeService {
 
     @Transactional
     public boolean deleteDrinkById(Long id) {
-        Drink drink = drinkRepository.findDrinkById(id);
+        Drink drink = drinkRepository.findById(id).get();
+
+        if (drink == null){
+            return false;
+        }
 
         List<User> users = drink.getUsers();
         for (User user : users) {
             user.getDrinks().remove(drink);
         }
-        statisticsRepositoryBean.deleteStatisticsByDrink(drink);
-        drinkRepository.delete(id);
+        statisticsRepository.deleteStatisticsByDrink(drink);
+        drinkRepository.delete(drink);
         return true;
     }
 
     @Transactional
     public boolean addOrUpdateDrink(Long id, Drink newDrink, ContextHolder contextHolder) {
-        Drink editedDrink = drinkRepository.findDrinkById(id);
-
-
-        if (editedDrink == null){
-            editedDrink = new Drink();
-        }
+        Drink editedDrink = drinkRepository.findById(id).orElse(new Drink());
 
         if (newDrink != null) {
             editedDrink.setConfirmUserEmail(newDrink.getConfirmUserEmail());
@@ -159,7 +156,7 @@ public class AdminManagementRecipeService {
         if (id != 0L){
             editedDrink.setManageAction("EDIT");
             drinkRepository.deleteIngredientsFromDrink(id);
-            drinkRepository.update(id, editedDrink);
+            drinkRepository.save(editedDrink);
         } else {
             editedDrink.setManageAction("ADD");
             drinkRepository.save(editedDrink);
@@ -169,47 +166,50 @@ public class AdminManagementRecipeService {
     }
 
     public Drink setApproved(long drinkId) {
-        Drink drink = drinkRepository.findDrinkById(drinkId);
+        Drink drink = drinkRepository.findById(drinkId).orElseThrow();
         drink.setApproved(true);
-        drinkRepository.update(drinkId, drink);
+        drinkRepository.save(drink);
 
         return drink;
     }
 
 
     public Drink rejectDrinkProposal(long drinkId) {
-        Drink drink = drinkRepository.findDrinkById(drinkId);
-        drinkRepository.delete(drinkId);
+        Drink drink = drinkRepository.findById(drinkId).orElseThrow();
+        drinkRepository.delete(drink);
         return drink;
     }
 
     public Drink setApprovedEditedDrink(long drinkId) {
-        Drink newDrink = drinkRepository.findDrinkById(drinkId);
-        statisticsRepositoryBean.deleteStatisticsByDrink(newDrink);
+        Drink newDrink = drinkRepository.findById(drinkId).orElseThrow();
+        statisticsRepository.deleteStatisticsByDrink(newDrink);
 
         Long newDrinkParentId = newDrink.getParentId();
-        Drink oldDrink = drinkRepository.findDrinkById(newDrinkParentId);
-        statisticsRepositoryBean.deleteStatisticsByDrink(oldDrink);
+        Drink oldDrink = drinkRepository.findById(newDrinkParentId).orElseThrow();
+        statisticsRepository.deleteStatisticsByDrink(oldDrink);
+
+        drinkRepository.delete(newDrink);
 
         newDrink.setApproved(true);
         newDrink.setId(newDrinkParentId);
 
-        drinkRepository.update(newDrink.getId(), newDrink);
-        drinkRepository.delete(drinkId);
+        drinkRepository.save(newDrink);
 
         return newDrink;
     }
 
     public Drink setApprovedDeleteDrink(long drinkId) {
-        Drink drink= drinkRepository.findDrinkById(drinkId);
+        Drink drink= drinkRepository.findById(drinkId).orElseThrow();
+        drinkRepository.delete(drink);
+
         Long idTobeDeleted = drink.getParentId();
-        Drink drinkTobeDeleted = drinkRepository.findDrinkById(idTobeDeleted);
+        Drink drinkTobeDeleted = drinkRepository.findById(idTobeDeleted).orElseThrow();
 
-        statisticsRepositoryBean.deleteStatisticsByDrink(drinkTobeDeleted);
-        ratingRepository.removeRating(idTobeDeleted);
+        statisticsRepository.deleteStatisticsByDrink(drinkTobeDeleted);
 
-        drinkRepository.delete(drinkId);
-        drinkRepository.delete(idTobeDeleted);
+        ratingRepository.findByDrinkId(idTobeDeleted).ifPresent(rating1 -> ratingRepository.delete(rating1));
+
+        drinkRepository.delete(drinkTobeDeleted);
 
         return drink;
     }

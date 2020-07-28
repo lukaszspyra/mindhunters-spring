@@ -11,8 +11,6 @@ import java.util.List;
 
 public interface DrinkRepository extends JpaRepository<Drink, Long> {
 
-    //TODO - check if drink exists prior removal (in adminManagementService)
-
 
     @Query("SELECT c.name, COUNT(d.drinkName) as quantity FROM Drink d JOIN d.category c  WHERE d.isApproved = true " +
             "GROUP BY c" +
@@ -96,12 +94,6 @@ TODO remove these when complete drinkService methods implementations
 
 private static final Integer LIVE_SEARCH_LIMIT = 10;
 
-
-     @Override
-    public void update(Long id, Drink updatedDrink) {
-        entityManager.detach(updatedDrink);
-        entityManager.merge(updatedDrink);
-    }
 
     */
 }

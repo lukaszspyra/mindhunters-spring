@@ -9,7 +9,6 @@ import com.spyrka.mindhunters.models.json.DrinkJson;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
 
 public class JsonReader {
@@ -31,15 +30,5 @@ public class JsonReader {
 
         return drink;
     }
-
-
-    public static Set<String> jsonFavouritesReader(String fileName) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        File json = new File(fileName);
-        final Set<String> favouritesSet = mapper.readValue(json, FavouritesDatabase.class).getFavouritesIds();
-
-        return favouritesSet;
-    }
-
 
 }

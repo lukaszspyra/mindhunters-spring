@@ -39,13 +39,13 @@ public class AdminUserService {
             return false;
         }
 
-        User userById = userRepository.findUserById(longId).get();
+        User userById = userRepository.findById(longId).get();
 
         if ("SUPER_ADMIN".equalsIgnoreCase(userById.getRole().getName())) {
             return false;
         }
         userById.setRole(roleRepository.findRoleByName("ADMIN").get());
-        User adminUser = userRepository.update(userById);
+        User adminUser = userRepository.save(userById);
 
         return adminUser.getRole().getName().equalsIgnoreCase("ADMIN");
     }
@@ -57,13 +57,13 @@ public class AdminUserService {
             return false;
         }
 
-        User userById = userRepository.findUserById(longId).orElseThrow(IllegalArgumentException::new);
+        User userById = userRepository.findById(longId).orElseThrow(IllegalArgumentException::new);
 
         if ("SUPER_ADMIN".equalsIgnoreCase(userById.getRole().getName())) {
             return false;
         }
         userById.setRole(roleRepository.findRoleByName("USER").get());
-        User ordinaryUser = userRepository.update(userById);
+        User ordinaryUser = userRepository.save(userById);
 
         return ordinaryUser.getRole().getName().equalsIgnoreCase("USER");
 

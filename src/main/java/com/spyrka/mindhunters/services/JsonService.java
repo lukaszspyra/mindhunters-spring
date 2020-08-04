@@ -1,18 +1,18 @@
 package com.spyrka.mindhunters.services;
 
-import com.infoshareacademy.domain.DrinkJson;
+
+import com.spyrka.mindhunters.models.json.DrinkJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
-import javax.enterprise.context.RequestScoped;
 import java.io.IOException;
 import java.util.List;
 
-
-@RequestScoped
+@Service
 public class JsonService {
 
-    private static final Logger packageLogger = LoggerFactory.getLogger(com.infoshareacademy.service.JsonService.class.getName());
+    private static final Logger packageLogger = LoggerFactory.getLogger(JsonService.class.getName());
 
     public void save(String pathToJsonFile) {
         List<DrinkJson> drinksFromJson = filerToListOfDrinksJson(pathToJsonFile);

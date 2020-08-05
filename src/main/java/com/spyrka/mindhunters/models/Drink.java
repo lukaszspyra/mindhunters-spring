@@ -10,86 +10,16 @@ import java.util.List;
 import java.util.Objects;
 
 @NamedQueries({
-        @NamedQuery(
-                name = "Drink.findByIngredients",
-                query = "SELECT d FROM Drink d JOIN d.drinkIngredients di WHERE di.ingredient IN :ingredients and d.isApproved = true GROUP BY " +
-                        "d ORDER BY COUNT (di.ingredient) DESC "),
-        @NamedQuery(
-                name = "Drink.countByIngredients",
-                query = "SELECT COUNT(DISTINCT d.id) FROM Drink d JOIN d.drinkIngredients di WHERE di.ingredient IN " +
-                        ":ingredients and d.isApproved = true"),
-        @NamedQuery(
-                name = "Drink.findDrinkByPartialName",
-                query = "SELECT d FROM Drink d WHERE LOWER( d.drinkName) LIKE LOWER(:partialDrinkName) and d.isApproved = true"),
 
-        @NamedQuery(
-                name = "Drink.countDrinksByPartialName",
-                query = "SELECT COUNT(d) FROM Drink d WHERE LOWER( d.drinkName) LIKE LOWER(:partialDrinkName) and d.isApproved = true"),
-
-        @NamedQuery(
-                name = "Drink.findAll",
-                query = "SELECT d FROM Drink d where d.isApproved = true"
-        ),
-        @NamedQuery(
-                name = "Drink.countFindAll",
-                query = "SELECT count (d) FROM Drink d where d.isApproved = true"
-        ),
-        @NamedQuery(
-                name = "Drink.findDrinksByCategories",
-                query = "select d from Drink d where d.category.id in (:category) and d.isApproved = true"
-        ),
-        @NamedQuery(
-                name = "Drink.CountDrinksByCategories",
-                query = "select count (d) from Drink d where d.category.id in (:category) and d.isApproved = true"
-        ),
-        @NamedQuery(
-                name = "Drink.findDrinksByAlcoholStatus",
-                query = "select d from Drink d where d.alcoholStatus in (:alcoholStatus) and d.isApproved = true"
-        ),
-        @NamedQuery(
-                name = "Drink.countDrinksByAlcoholStatus",
-                query = "select count (d) from Drink d where d.alcoholStatus in (:alcoholStatus) and d.isApproved = true"
-        ),
-        @NamedQuery(
-                name = "Drink.findByCategoriesAndAlcoholStatus",
-                query = "select d from Drink d  where d.alcoholStatus  in (:alcoholStatus) and d.category.id in (:category) and d.isApproved = true"
-        ),
-        @NamedQuery(
-                name = "Drink.countDrinksByCategoriesAndAlcoholStatus",
-                query = "select count (d) from Drink d where d.alcoholStatus  in (:alcoholStatus) and d.category.id in (:category) and d.isApproved = true"
-        ),
         @NamedQuery(
                 name = "Drink.findAllByCategories",
                 query = "select d from Drink d where d.category.name in :category  and d.isApproved = true"
         ),
 
         @NamedQuery(
-                name = "Drinks.getDrinksInAllCategories",
-                query = "SELECT c.name, COUNT(d.drinkName) as quantity FROM Drink d JOIN d.category c  WHERE d.isApproved = true GROUP BY c" +
-                        ".name ORDER BY c.name ASC"),
-        @NamedQuery(
                 name = "Drinks.getAllUsers",
                 query = "SELECT d.users FROM Drink d where d.id = :id AND d.isApproved = true"),
 
-        @NamedQuery(
-                name = "Drink.getDrinksToApprove",
-                query = "SELECT d FROM Drink d where d.isApproved = false "),
-
-        @NamedQuery(
-                name = "Drink.deleteIngredientsByDrink",
-                query = "DELETE FROM DrinkIngredient di where di.drinkId.id = :drinkId "),
-
-        @NamedQuery(
-                name = "Drink.getEditedDrinksToApprove",
-                query = "SELECT d FROM Drink d where d.isApproved = false AND d.manageAction LIKE :action"),
-
-        @NamedQuery(
-                name = "Drink.getDeletedDrinksToApprove",
-                query = "SELECT d FROM Drink d where d.isApproved = false AND d.manageAction LIKE :action"),
-
-        @NamedQuery(
-                name = "Drink.getNewDrinksToApprove",
-                query = "SELECT d FROM Drink d where d.isApproved = false AND d.manageAction NOT IN :actions")
 
 })
 

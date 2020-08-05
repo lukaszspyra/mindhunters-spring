@@ -5,22 +5,6 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@NamedQueries({
-        @NamedQuery(
-                name = "Category.findAll",
-                query = "SELECT c FROM Category c"
-        ),
-        @NamedQuery(
-                name = "Category.findAllNames",
-                query = "SELECT c.name FROM Category c"
-        ),
-        @NamedQuery(
-                name = "Category.getByName",
-                query = "SELECT c FROM Category c where c.name= :name"
-        )
-})
-
-
 @Entity
 @Table(name = "category")
 public class Category {
@@ -34,7 +18,6 @@ public class Category {
 
     @OneToMany(mappedBy = "category", cascade = {CascadeType.ALL})
     private List<Drink> drinks = new ArrayList<>();
-
 
 
     public Long getId() {

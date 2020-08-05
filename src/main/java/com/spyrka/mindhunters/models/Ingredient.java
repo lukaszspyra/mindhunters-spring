@@ -3,15 +3,6 @@ package com.spyrka.mindhunters.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@NamedQueries({
-        @NamedQuery(
-                name = "Ingredient.getByName",
-                query = "SELECT i FROM Ingredient i where i.name= :name"
-        ),
-        @NamedQuery(name = "Ingredient.findIngredientsByPartialName",
-                query = "SELECT DISTINCT i FROM Ingredient i WHERE LOWER(i.name) LIKE LOWER" +
-                        "(:partialIngredientName)")
-})
 
 @Entity
 @Table(name = "ingredient")

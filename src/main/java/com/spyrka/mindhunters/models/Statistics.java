@@ -6,7 +6,7 @@ import javax.validation.Valid;
 
 @NamedQueries({
         @NamedQuery(
-                name = "Statistics.getTop10Drinks",
+                name = "Statistics.getTopDrinks",
                 query = "SELECT s.drink, COUNT(s.drink) as quantity FROM Statistics s GROUP BY s.drink ORDER BY " +
                         "quantity DESC"),
 
@@ -15,10 +15,7 @@ import javax.validation.Valid;
                 query = "SELECT c.name, COUNT(d.drinkName) as quantity FROM Statistics s JOIN s.drink d JOIN" +
                         " " +
                         "d.category c " +
-                        "GROUP BY c.name ORDER BY quantity DESC"),
-        @NamedQuery(
-                name = "Statistics.deleteStatisticsByDrinks",
-                query = "DELETE  FROM Statistics s where s.drink = :drink" )
+                        "GROUP BY c.name ORDER BY quantity DESC")
 
 })
 

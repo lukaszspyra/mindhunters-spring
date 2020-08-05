@@ -1,15 +1,15 @@
 package com.spyrka.mindhunters.services;
 
 
-import com.infoshareacademy.context.ContextHolder;
+import com.spyrka.mindhunters.context.ContextHolder;
+import org.springframework.stereotype.Service;
 
-import javax.enterprise.context.RequestScoped;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
-@RequestScoped
+@Service
 public class ModelInitializer {
 
 

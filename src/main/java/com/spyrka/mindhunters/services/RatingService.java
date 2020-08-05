@@ -1,20 +1,19 @@
 package com.spyrka.mindhunters.services;
 
-import com.infoshareacademy.domain.Rating;
-import com.infoshareacademy.repository.DrinkRepository;
-import com.infoshareacademy.repository.RatingRepository;
+import com.spyrka.mindhunters.models.Rating;
+import com.spyrka.mindhunters.repositories.DrinkRepository;
+import com.spyrka.mindhunters.repositories.RatingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
-import javax.transaction.Transactional;
-
-@Stateless
+@Service
 public class RatingService {
 
-    @EJB
+    @Autowired
     private RatingRepository ratingRepository;
 
-    @EJB
+    @Autowired
     private DrinkRepository drinkRepository;
 
 
@@ -42,9 +41,9 @@ public class RatingService {
         Rating initialRating = new Rating();
         initialRating.setNumberOfRatings(0L);
         initialRating.setSum(0.0);
-        initialRating.setDrink(drinkRepository.findDrinkById(drinkId));
+        initialRating.setDrink(drinkRepository.findById(drinkId).get());
 
-        ratingRepository.saveRating(initialRating);
+        ratingRepository.save(initialRating);
 
         return initialRating;
     }
@@ -52,7 +51,15 @@ public class RatingService {
     @Transactional
     public Rating updateRating(Long drinkId, Double ratingParam) {
 
-        return ratingRepository.updateRating(drinkId, ratingParam);
+        final Rating rating = ratingRepository.findByDrinkId(drinkId).get();
+
+        final Double newSum = rating.getSum() + ratingParam;
+        final long newNumberOfRating = rating.getNumberOfRatings() + 1;
+
+        rating.setSum(newSum);
+        rating.setNumberOfRatings(newNumberOfRating);
+
+        return ratingRepository.save(rating);
 
     }
 

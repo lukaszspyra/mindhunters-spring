@@ -14,6 +14,8 @@ public interface StatisticsRepository extends JpaRepository<Statistics, Long> {
 
     List getTopDrinks(Pageable pageable);
 
+    List getTopDrinks();
+
     List getCategoriesStats();
 
     void deleteStatisticsByDrink(@Valid Drink drink);

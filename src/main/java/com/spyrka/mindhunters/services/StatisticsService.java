@@ -1,31 +1,34 @@
 package com.spyrka.mindhunters.services;
 
 
-import com.infoshareacademy.domain.Drink;
-import com.infoshareacademy.domain.Statistics;
-import com.infoshareacademy.domain.dto.FullDrinkView;
-import com.infoshareacademy.domain.dto.StatisticsChartView;
-import com.infoshareacademy.repository.StatisticsRepositoryBean;
-import com.infoshareacademy.service.mapper.LiveSearchMapper;
-import com.infoshareacademy.service.mapper.StatisticsMapper;
+import com.spyrka.mindhunters.models.Drink;
+import com.spyrka.mindhunters.models.Statistics;
+import com.spyrka.mindhunters.models.dto.FullDrinkView;
+import com.spyrka.mindhunters.models.dto.StatisticsChartView;
+import com.spyrka.mindhunters.repositories.DrinkRepository;
+import com.spyrka.mindhunters.repositories.StatisticsRepository;
+import com.spyrka.mindhunters.services.mappers.LiveSearchMapper;
+import com.spyrka.mindhunters.services.mappers.StatisticsMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-@Stateless
+@Service
 public class StatisticsService {
 
 
-    @EJB
-    private StatisticsRepositoryBean statisticsRepositoryBean;
+    @Autowired
+    private StatisticsRepository statisticsRepository;
 
-    @EJB
+    @Autowired
+    private DrinkRepository drinkRepository;
+
+    @Autowired
     private LiveSearchMapper liveSearchMapper;
 
-    @Inject
+    @Autowired
     private StatisticsMapper statisticsMapper;
 
     public void addToStatistics(FullDrinkView fullDrinkView) {
@@ -33,12 +36,12 @@ public class StatisticsService {
         long timeStamp = System.currentTimeMillis();
 
         statistics.setTimeStamp(timeStamp);
-        statisticsRepositoryBean.addToStatistics(statistics);
+        statisticsRepository.save(statistics);
 
     }
 
     public List<StatisticsChartView> getTopDrinks() {
-        List statistics = statisticsRepositoryBean.getTopDrinks();
+        List statistics = statisticsRepository.getTopDrinks();
         Object[] row;
         List<StatisticsChartView> views = new ArrayList<>();
 
@@ -64,7 +67,7 @@ public class StatisticsService {
     }
 
     public List<StatisticsChartView> getCategoriesStats() {
-        List statistics = statisticsRepositoryBean.getCategoriesStats();
+        List statistics = statisticsRepository.getCategoriesStats();
         Object[] row;
         List<StatisticsChartView> views = new ArrayList<>();
 
@@ -87,7 +90,7 @@ public class StatisticsService {
 
 
     public List<StatisticsChartView> getDrinksInAllCategories() {
-        List statistics = statisticsRepositoryBean.getDrinksInAllCategories();
+        List statistics = drinkRepository.getDrinksInAllCategories();
         Object[] row;
         List<StatisticsChartView> views = new ArrayList<>();
 

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Mindhunters</title>
-    <link href="../static/css/style.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
@@ -23,7 +23,8 @@
 <div class="body part1-top" id="body part1-top" style="background-color: #1b1e21">
     <div class="container-fluid" id="part1-top">
         <div style="position: relative">
-            <img class="backGround mx-auto" src="../static/img/mindhunters.jpg" alt="background" id="glasses">
+            <img class="backGround mx-auto" src="img/mindhunters.jpg"
+            alt="background" id="glasses">
             <div class="over-photo1">
                 <header class="masthead">
                     <div class="container welcome-settings">
@@ -83,7 +84,7 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymneiw iem jak wsatawilem u mnie footer to mi namiesal z ustawieniemous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<script src="../static/js/BootstrapValidation.js"></script>
-<script src="../static/js/homePage.js"></script>
+<script src="js/BootstrapValidation.js"></script>
+<script src="js/homePage.js"></script>
 </body>
 </html>

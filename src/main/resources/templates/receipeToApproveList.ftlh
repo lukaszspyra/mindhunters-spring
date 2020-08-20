@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Mindhunters</title>
-    <link href="../static/css/drink_list.css" rel="stylesheet">
+    <link href="css/drink_list.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 
 </head>
@@ -55,7 +55,7 @@
                                             <#if drink.image!?trim?has_content>
                                                 <img src="${drink.image}" class="thumbnail_list justify-content-center">
                                             <#else>
-                                                <img src="../static/img/drinkimage-not-avail.jpg"
+                                                <img src="img/drinkimage-not-avail.jpg"
                                                      class=" thumbnail_list justify-content-center">
                                             </#if>
                                             <#if name??>
@@ -169,11 +169,11 @@
 <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>-->
 <!--&lt;!&ndash; Third party plugin JS&ndash;&gt;-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<#--<script src="../static/js/BootstrapValidation.js"></script>-->
+<#--<script src="js/BootstrapValidation.js"></script>-->
 <!--&lt;!&ndash;&lt;!&ndash; Core theme JS&ndash;&gt;&ndash;&gt;-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.js"></script>
 -->
-<script src="../static/js/receipeList.js"></script>
+<script src="js/receipeList.js"></script>
 <#--
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 -->

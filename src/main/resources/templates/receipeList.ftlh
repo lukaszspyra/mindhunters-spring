@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Mindhunters</title>
-    <link href="../static/css/drink_list.css" rel="stylesheet">
+    <link href="css/drink_list.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 
 </head>
@@ -45,7 +45,7 @@
                                             <#if drink.image!?trim?has_content>
                                                 <img src="${drink.image}" class="thumbnail_list justify-content-center">
                                             <#else>
-                                                <img src="../static/img/drinkimage-not-avail.jpg"
+                                                <img src="img/drinkimage-not-avail.jpg"
                                                      class=" thumbnail_list justify-content-center">
                                             </#if>
                                             <#if name??>
@@ -136,7 +136,7 @@
 
 <!-- Bootstrap core JS-->
 
-<script src="../static/js/receipeList.js"></script>
+<script src="js/receipeList.js"></script>
 
 <#if !adult??>
 

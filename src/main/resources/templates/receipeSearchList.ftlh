@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 
     <!--  Mindhunterrs CSS -->
-    <link href="../static/css/drink_list.css" rel="stylesheet">
+    <link href="css/drink_list.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 
@@ -73,7 +73,7 @@
                                             <#if drink.image!?trim?has_content>
                                                 <img src="${drink.image}" class="thumbnail_list justify-content-center">
                                             <#else>
-                                                <img src="../static/img/drinkimage-not-avail.jpg"
+                                                <img src="img/drinkimage-not-avail.jpg"
                                                      class=" thumbnail_list justify-content-center">
                                             </#if>
                                         </div>
@@ -133,8 +133,8 @@
 <#include "footer.ftlh">
 
 <!--CSS scripts-->
-<script type="text/javascript" src="../static/js/homePage.js"></script>
-<script type="text/javascript" src="../static/js/searchPage.js"></script>
+<script type="text/javascript" src="js/homePage.js"></script>
+<script type="text/javascript" src="js/searchPage.js"></script>
 
 <#if !adult??>
 

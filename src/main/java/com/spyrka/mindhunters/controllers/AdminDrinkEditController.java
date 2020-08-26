@@ -1,61 +1,55 @@
 package com.spyrka.mindhunters.controllers;
 
-import com.infoshareacademy.context.ContextHolder;
-import com.infoshareacademy.domain.Drink;
-import com.infoshareacademy.domain.dto.FullDrinkView;
-import com.infoshareacademy.email.EmailSender;
-import com.infoshareacademy.email.UserDrinkProposalEmailBuilder;
-import com.infoshareacademy.freemarker.TemplateProvider;
-import com.infoshareacademy.service.AdminManagementRecipeService;
-import com.infoshareacademy.service.DrinkService;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
+
+import com.spyrka.mindhunters.context.ContextHolder;
+import com.spyrka.mindhunters.email.EmailSender;
+import com.spyrka.mindhunters.email.UserDrinkProposalEmailBuilder;
+import com.spyrka.mindhunters.models.Drink;
+import com.spyrka.mindhunters.models.dto.FullDrinkView;
+import com.spyrka.mindhunters.services.AdminManagementRecipeService;
+import com.spyrka.mindhunters.services.DrinkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.ejb.EJB;
-import javax.inject.Inject;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.HashMap;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@WebServlet("/admin/to-approve-list/edit")
-public class AdminDrinkEditController extends HttpServlet {
+@Controller
+public class AdminDrinkEditController  {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AdminDrinkEditServlet.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdminDrinkEditController.class.getName());
 
-    @EJB
+    @Autowired
     private DrinkService drinkService;
 
-    @EJB
+    @Autowired
     private AdminManagementRecipeService adminManagementRecipeService;
 
-    @EJB
+    @Autowired
     private UserDrinkProposalEmailBuilder userDrinkProposalEmailBuilder;
 
-    @EJB
+    @Autowired
     private EmailSender emailSender;
 
-    @Inject
-    private TemplateProvider templateProvider;
 
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @GetMapping("/admin/to-approve-list/edit")
+    protected String doGet(Model model, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
 
         ContextHolder contextHolder = new ContextHolder(req.getSession());
 
         String role = contextHolder.getRole();
-        Map<String, Object> dataModel = new HashMap<>();
+        Map<String, Object> dataModel = model.asMap();
 
         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
@@ -78,26 +72,19 @@ public class AdminDrinkEditController extends HttpServlet {
         dataModel.put("typeOfAction", "edited");
         dataModel.put("url", "/edit");
 
-        Template template = templateProvider.getTemplate(getServletContext(), "receipeToApproveList.ftlh");
-
-        try {
-            template.process(dataModel, resp.getWriter());
-        } catch (
-                TemplateException e) {
-            LOGGER.error(e.getMessage());
-        }
+        return "recipeToApproveList";
     }
 
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    @PostMapping("/admin/to-approve-list/edit")
+    protected String doPost(Model model, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=UTF-8");
 
         ContextHolder contextHolder = new ContextHolder(req.getSession());
 
         String role = contextHolder.getRole();
-        Map<String, Object> dataModel = new HashMap<>();
+        Map<String, Object> dataModel = model.asMap();
 
         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
@@ -137,14 +124,7 @@ public class AdminDrinkEditController extends HttpServlet {
         dataModel.put("typeOfAction", "edited");
         dataModel.put("url", "edit");
 
-        Template template = templateProvider.getTemplate(getServletContext(), "receipeToApproveList.ftlh");
-
-        try {
-            template.process(dataModel, resp.getWriter());
-        } catch (
-                TemplateException e) {
-            LOGGER.error(e.getMessage());
-        }
+        return "recipeToApproveList";
     }
 
 }

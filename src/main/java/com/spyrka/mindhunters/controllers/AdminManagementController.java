@@ -16,10 +16,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -42,7 +42,6 @@ public class AdminManagementController {
     private EmailSender emailSender;
 
 
-
     @GetMapping("/admin/to-approve-list")
     protected String doGet(Model model, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         resp.setContentType("text/html; charset=UTF-8");
@@ -51,7 +50,7 @@ public class AdminManagementController {
         ContextHolder contextHolder = new ContextHolder(req.getSession());
 
         String role = contextHolder.getRole();
-        Map<String, Object> dataModel = model.asMap();
+        Map<String, Object> dataModel = new HashMap<>();
 
         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
@@ -73,6 +72,8 @@ public class AdminManagementController {
 
         dataModel.put("url", "");
 
+        model.addAllAttributes(dataModel);
+
         return "recipeToApproveList";
     }
 
@@ -85,7 +86,7 @@ public class AdminManagementController {
         ContextHolder contextHolder = new ContextHolder(req.getSession());
 
         String role = contextHolder.getRole();
-        Map<String, Object> dataModel = model.asMap();
+        Map<String, Object> dataModel = new HashMap<>();
 
         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
@@ -123,6 +124,8 @@ public class AdminManagementController {
         }
 
         dataModel.put("url", "");
+
+        model.mergeAttributes(dataModel);
 
         return "recipeToApproveList";
     }

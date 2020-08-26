@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -32,16 +34,18 @@ public class DrinkSearchController {
     private UserService userService;
 
     @GetMapping("/search")
-    protected String doGet(Model dataModel, HttpServletRequest req,
+    protected String doGet(Model model, HttpServletRequest req,
                            HttpServletResponse resp) throws UnsupportedEncodingException {
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
 
-        dataModel.addAllAttributes(searchTypeService.listViewSearchType(req));
+        Map<String, Object> dataModel = new HashMap<>();
+
+        dataModel = searchTypeService.listViewSearchType(req);
 
         ContextHolder contextHolder = new ContextHolder(req.getSession());
-        dataModel.addAttribute("name", contextHolder.getName());
-        dataModel.addAttribute("role", contextHolder.getRole());
+        dataModel.put("name", contextHolder.getName());
+        dataModel.put("role", contextHolder.getRole());
 
 
         verifyAge18(req, resp, contextHolder);
@@ -50,8 +54,10 @@ public class DrinkSearchController {
 
 
         if (contextHolder.getADULT() != null) {
-            dataModel.addAttribute("adult", contextHolder.getADULT());
+            dataModel.put("adult", contextHolder.getADULT());
         }
+
+        model.addAllAttributes(dataModel);
 
         return "recipeSearchList";
     }

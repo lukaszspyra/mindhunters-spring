@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -44,27 +45,29 @@ public class SingleViewController {
 
 
     @GetMapping("/single-view")
-    protected String doGet(Model dataModel, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
+    protected String doGet(Model model, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
         final String idParam = req.getParameter("drink");
         Long drinkId = userInputValidator.stringToLongConverter(idParam);
 
+        Map<String, Object> dataModel = new HashMap<>();
 
-        String email = getCredentials(req, dataModel.asMap());
+        String email = getCredentials(req, dataModel);
 
         if (drinkId < 0) {
-            dataModel.addAttribute("errorMessage", "Wrong input.\n");
+            dataModel.put("errorMessage", "Wrong input.\n");
         } else {
-            final FullDrinkView foundDrinkById = passDTOtoView(drinkId, dataModel.asMap());
+            final FullDrinkView foundDrinkById = passDTOtoView(drinkId, dataModel);
 
             statisticsService.addToStatistics(foundDrinkById);
 
-            dataModel.addAttribute("rating", ratingService.getCalculatedRatingByDrinkId(drinkId));
+            dataModel.put("rating", ratingService.getCalculatedRatingByDrinkId(drinkId));
         }
 
-        sentFavouritesToView(dataModel.asMap(), email);
+        sentFavouritesToView(dataModel, email);
 
+        model.addAllAttributes(dataModel);
         return "singleDrinkView";
     }
 

@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -46,7 +47,7 @@ public class DrinkListController {
     @GetMapping(
             path = "/list"
     )
-    public String doGet(Model dataModel,
+    public String doGet(Model model,
                         HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
@@ -64,9 +65,11 @@ public class DrinkListController {
 
         final List<CategoryView> categories = categoryService.findAllCategories();
 
+        Map<String, Object> dataModel = new HashMap<>();
+
         ContextHolder contextHolder = new ContextHolder(req.getSession());
-        dataModel.addAttribute("name", contextHolder.getName());
-        dataModel.addAttribute("role", contextHolder.getRole());
+        dataModel.put("name", contextHolder.getName());
+        dataModel.put("role", contextHolder.getRole());
 
 
         verifyAge18(req, resp, contextHolder);
@@ -75,7 +78,7 @@ public class DrinkListController {
 
 
         if (contextHolder.getADULT() != null) {
-            dataModel.addAttribute("adult", contextHolder.getADULT());
+            dataModel.put("adult", contextHolder.getADULT());
         }
 
 
@@ -101,19 +104,21 @@ public class DrinkListController {
                         .map(aLong -> Integer.parseInt(aLong.toString()))
                         .collect(Collectors.toList());
 
-                dataModel.addAttribute("favourites", favouritesListModel);
+                dataModel.put("favourites", favouritesListModel);
             }
 
         }
 
         String servletPath = req.getServletPath();
 
-        dataModel.addAttribute("servletPath", servletPath);
-        dataModel.addAttribute("categories", categories);
-        dataModel.addAttribute("maxPageSize", maxPage);
-        dataModel.addAttribute("queryName", queryName);
-        dataModel.addAttribute("drinkList", drinkViewList);
-        dataModel.addAttribute("currentPage", currentPage);
+        dataModel.put("servletPath", servletPath);
+        dataModel.put("categories", categories);
+        dataModel.put("maxPageSize", maxPage);
+        dataModel.put("queryName", queryName);
+        dataModel.put("drinkList", drinkViewList);
+        dataModel.put("currentPage", currentPage);
+
+        model.addAllAttributes(dataModel);
 
         return "recipeList";
 

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -49,7 +50,7 @@ public class AdminDrinkEditController  {
         ContextHolder contextHolder = new ContextHolder(req.getSession());
 
         String role = contextHolder.getRole();
-        Map<String, Object> dataModel = model.asMap();
+        Map<String, Object> dataModel = new HashMap<>();
 
         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
@@ -72,6 +73,8 @@ public class AdminDrinkEditController  {
         dataModel.put("typeOfAction", "edited");
         dataModel.put("url", "/edit");
 
+        model.addAllAttributes(dataModel);
+
         return "recipeToApproveList";
     }
 
@@ -84,7 +87,7 @@ public class AdminDrinkEditController  {
         ContextHolder contextHolder = new ContextHolder(req.getSession());
 
         String role = contextHolder.getRole();
-        Map<String, Object> dataModel = model.asMap();
+        Map<String, Object> dataModel = new HashMap<>();
 
         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
@@ -123,6 +126,8 @@ public class AdminDrinkEditController  {
 
         dataModel.put("typeOfAction", "edited");
         dataModel.put("url", "edit");
+
+        model.mergeAttributes(dataModel);
 
         return "recipeToApproveList";
     }

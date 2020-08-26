@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -51,7 +52,7 @@ public class AdminDrinkDeleteController {
         ContextHolder contextHolder = new ContextHolder(req.getSession());
 
         String role = contextHolder.getRole();
-        Map<String, Object> dataModel = model.asMap();
+        Map<String, Object> dataModel = new HashMap<>();
 
         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
@@ -74,6 +75,8 @@ public class AdminDrinkDeleteController {
         dataModel.put("typeOfAction", "deleted");
         dataModel.put("url", "delete");
 
+        model.addAllAttributes(dataModel);
+
         return "recipeToApproveList";
     }
 
@@ -87,7 +90,7 @@ public class AdminDrinkDeleteController {
         ContextHolder contextHolder = new ContextHolder(req.getSession());
 
         String role = contextHolder.getRole();
-        Map<String, Object> dataModel = model.asMap();
+        Map<String, Object> dataModel = new HashMap<>();
 
         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
@@ -127,6 +130,8 @@ public class AdminDrinkDeleteController {
 
         dataModel.put("typeOfAction", "deleted");
         dataModel.put("url", "/delete");
+
+        model.mergeAttributes(dataModel);
 
         return "recipeToApproveList";
     }

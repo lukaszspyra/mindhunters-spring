@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Controller
 public class SingleViewController {
 
-    private static final Logger logger = LoggerFactory.getLogger(SingleViewController.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(SingleViewController.class.getName());
 
     @Autowired
     private DrinkService drinkService;
@@ -65,7 +65,7 @@ public class SingleViewController {
 
         sentFavouritesToView(dataModel.asMap(), email);
 
-        return "singleDrinkView.ftlh";
+        return "singleDrinkView";
     }
 
     private void sentFavouritesToView(Map<String, Object> dataModel, String email) {

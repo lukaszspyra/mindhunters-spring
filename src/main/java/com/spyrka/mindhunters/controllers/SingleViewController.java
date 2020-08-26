@@ -1,97 +1,82 @@
 package com.spyrka.mindhunters.controllers;
 
-import com.infoshareacademy.context.ContextHolder;
-import com.infoshareacademy.domain.dto.FullDrinkView;
-import com.infoshareacademy.freemarker.TemplateProvider;
-import com.infoshareacademy.service.DrinkService;
-import com.infoshareacademy.service.RatingService;
-import com.infoshareacademy.service.StatisticsService;
-import com.infoshareacademy.service.UserService;
-import com.infoshareacademy.service.validator.UserInputValidator;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
+
+import com.spyrka.mindhunters.context.ContextHolder;
+import com.spyrka.mindhunters.models.dto.FullDrinkView;
+import com.spyrka.mindhunters.services.DrinkService;
+import com.spyrka.mindhunters.services.RatingService;
+import com.spyrka.mindhunters.services.StatisticsService;
+import com.spyrka.mindhunters.services.UserService;
+import com.spyrka.mindhunters.services.validator.UserInputValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.ejb.EJB;
-import javax.inject.Inject;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.HashMap;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@WebServlet("/single-view")
-public class SingleViewController extends HttpServlet {
+@Controller
+public class SingleViewController {
 
-    private static final Logger logger = LoggerFactory.getLogger(SingleViewServlet.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(SingleViewController.class.getName());
 
-    @EJB
+    @Autowired
     private DrinkService drinkService;
 
-    @EJB
+    @Autowired
     private StatisticsService statisticsService;
 
-    @EJB
+    @Autowired
     private RatingService ratingService;
 
-    @Inject
+    @Autowired
     private UserInputValidator userInputValidator;
 
-
-    @Inject
-    private TemplateProvider templateProvider;
-
-    @Inject
+    @Autowired
     private UserService userService;
 
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+    @GetMapping("/single-view")
+    protected String doGet(Model dataModel, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
         final String idParam = req.getParameter("drink");
         Long drinkId = userInputValidator.stringToLongConverter(idParam);
-        Map<String, Object> dataModel = new HashMap<>();
 
-        String email = getCredentials(req, dataModel);
+
+        String email = getCredentials(req, dataModel.asMap());
 
         if (drinkId < 0) {
-            dataModel.put("errorMessage", "Wrong input.\n");
+            dataModel.addAttribute("errorMessage", "Wrong input.\n");
         } else {
-            final FullDrinkView foundDrinkById = passDTOtoView(drinkId, dataModel);
+            final FullDrinkView foundDrinkById = passDTOtoView(drinkId, dataModel.asMap());
 
             statisticsService.addToStatistics(foundDrinkById);
 
-            dataModel.put("rating",ratingService.getCalculatedRatingByDrinkId(drinkId));
+            dataModel.addAttribute("rating", ratingService.getCalculatedRatingByDrinkId(drinkId));
         }
 
-        sentFavouritesToView(dataModel, email);
+        sentFavouritesToView(dataModel.asMap(), email);
 
-        Template template = templateProvider.getTemplate(getServletContext(), "singleDrinkView.ftlh");
-        try {
-            template.process(dataModel, resp.getWriter());
-        } catch (TemplateException e) {
-            logger.error(e.getMessage());
-
-        }
+        return "singleDrinkView.ftlh";
     }
 
     private void sentFavouritesToView(Map<String, Object> dataModel, String email) {
-        if (email != null && !email.isEmpty()){
+        if (email != null && !email.isEmpty()) {
 
             List<FullDrinkView> favouritesList = userService.favouritesList(email);
 
-            if (!favouritesList.isEmpty()){
-                List<Object>favouritesListModel = favouritesList.stream()
+            if (!favouritesList.isEmpty()) {
+                List<Object> favouritesListModel = favouritesList.stream()
                         .map(FullDrinkView::getId)
-                        .map(aLong ->  Integer.parseInt(aLong.toString()))
+                        .map(aLong -> Integer.parseInt(aLong.toString()))
                         .collect(Collectors.toList());
 
                 dataModel.put("favourites", favouritesListModel);
@@ -119,7 +104,6 @@ public class SingleViewController extends HttpServlet {
 
         return contextHolder.getEmail();
     }
-
 
 
 }

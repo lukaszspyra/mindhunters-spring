@@ -2,67 +2,37 @@ package com.spyrka.mindhunters.controllers;
 
 
 import com.spyrka.mindhunters.context.ContextHolder;
-import com.spyrka.mindhunters.models.dto.CategoryView;
-import com.spyrka.mindhunters.models.dto.FullDrinkView;
-import com.spyrka.mindhunters.services.CategoryService;
-import com.spyrka.mindhunters.services.DrinkService;
-import com.spyrka.mindhunters.services.SearchType;
+import com.spyrka.mindhunters.services.SearchTypeService;
 import com.spyrka.mindhunters.services.UserService;
-import com.spyrka.mindhunters.services.validator.UserInputValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Controller
-public class DrinkListController {
+public class DrinkSearchController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DrinkListController.class.getName());
-
-    @Autowired
-    private DrinkService drinkService;
+    private static final Logger LOGGER = LoggerFactory.getLogger(DrinkSearchController.class.getName());
 
     @Autowired
-    private CategoryService categoryService;
-
-    @Autowired
-    private UserInputValidator userInputValidator;
+    private SearchTypeService searchTypeService;
 
     @Autowired
     private UserService userService;
 
-    @GetMapping(
-            path = "/list"
-    )
-    public String doGet(Model dataModel,
-                        HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
+    @GetMapping("/search")
+    protected String doGet(Model dataModel, HttpServletRequest req,
+                         HttpServletResponse resp) throws UnsupportedEncodingException {
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
 
-
-        String pageNumberReq = req.getParameter("page");
-
-        int currentPage;
-
-        if (!userInputValidator.validatePageNumber(pageNumberReq)) {
-            currentPage = 1;
-        } else {
-            currentPage = Integer.valueOf(pageNumberReq);
-        }
-
-        final List<CategoryView> categories = categoryService.findAllCategories();
+        dataModel.addAllAttributes(searchTypeService.listViewSearchType(req));
 
         ContextHolder contextHolder = new ContextHolder(req.getSession());
         dataModel.addAttribute("name", contextHolder.getName());
@@ -78,45 +48,7 @@ public class DrinkListController {
             dataModel.addAttribute("adult", contextHolder.getADULT());
         }
 
-
-        String email = contextHolder.getEmail();
-
-        Map<String, String[]> searchParam = req.getParameterMap();
-
-        SearchType searchType = drinkService.checkingSearchingCase(searchParam, currentPage);
-
-        int maxPage = searchType.getMaxPage();
-
-        List<FullDrinkView> drinkViewList = searchType.getDrinkViewList();
-
-        String queryName = searchType.getQueryName();
-
-        if (email != null && !email.isEmpty()) {
-
-            List<FullDrinkView> favouritesList = userService.favouritesList(email);
-
-            if (!favouritesList.isEmpty()) {
-                List<Object> favouritesListModel = favouritesList.stream()
-                        .map(FullDrinkView::getId)
-                        .map(aLong -> Integer.parseInt(aLong.toString()))
-                        .collect(Collectors.toList());
-
-                dataModel.addAttribute("favourites", favouritesListModel);
-            }
-
-        }
-
-        String servletPath = req.getServletPath();
-
-        dataModel.addAttribute("servletPath", servletPath);
-        dataModel.addAttribute("categories", categories);
-        dataModel.addAttribute("maxPageSize", maxPage);
-        dataModel.addAttribute("queryName", queryName);
-        dataModel.addAttribute("drinkList", drinkViewList);
-        dataModel.addAttribute("currentPage", currentPage);
-
-        return "recipeList";
-
+        return "recipeSearchList";
     }
 
     private void verifyAge18(HttpServletRequest req, HttpServletResponse resp, ContextHolder contextHolder) {
@@ -172,10 +104,8 @@ public class DrinkListController {
     }
 
 
-    @PostMapping(
-            path = "/list"
-    )
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String drinkId = req.getParameter("drinkId");
 
@@ -187,6 +117,6 @@ public class DrinkListController {
             userService.saveOrDeleteFavourite(email, drinkId);
 
         }
-
     }
+
 }

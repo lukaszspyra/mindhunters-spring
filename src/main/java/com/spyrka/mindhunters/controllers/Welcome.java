@@ -12,9 +12,6 @@ import java.io.UnsupportedEncodingException;
 @Controller
 public class Welcome {
 
-
-    //zmieniac servlety na controllery
-
     @GetMapping(
             path = "/"
     )

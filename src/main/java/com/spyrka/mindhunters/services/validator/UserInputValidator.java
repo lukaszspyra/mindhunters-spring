@@ -28,6 +28,8 @@ public class UserInputValidator {
     }
 
     public Long stringToLongConverter(String number) {
+        number = number.replaceAll(",", "");
+        number = number.replaceAll("\\.", "");
         if (NumberUtils.isCreatable(number)) {
             return Long.parseLong(number);
         }

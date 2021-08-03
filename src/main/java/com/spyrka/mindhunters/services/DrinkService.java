@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,9 +54,7 @@ public class DrinkService {
     public List<FullDrinkView> findDrinksByName(String partialDrinkName, int pageNumber) {
         LOGGER.debug("Searching drinks by name with pagination");
 
-        int startPosition = (pageNumber - 1) * PAGE_SIZE;
-
-        Pageable pageable = PageRequest.of(startPosition, PAGE_SIZE);
+        Pageable pageable = PageRequest.of(pageNumber - 1, PAGE_SIZE, Sort.by("drinkName"));
 
         List<Drink> foundDrinks = drinkRepository.findDrinksByDrinkNameContaining(partialDrinkName, pageable);
         return fullDrinkMapper.toView(foundDrinks);
@@ -64,47 +63,40 @@ public class DrinkService {
     public List<FullDrinkView> findByIngredients(List<IngredientView> ingredientViews, int pageNumber) {
         LOGGER.debug("Searching drinks by ingredients with pagination");
 
-        int startPosition = (pageNumber - 1) * PAGE_SIZE;
-
         final List<Ingredient> ingredients = ingredientMapper.toEntity(ingredientViews);
 
-        Pageable pageable = PageRequest.of(startPosition, PAGE_SIZE);
+        Pageable pageable = PageRequest.of(pageNumber - 1, PAGE_SIZE);
 
         final List<Drink> foundDrinksByIngredients = drinkRepository.findByIngredients(ingredients, pageable);
         return fullDrinkMapper.toView(foundDrinksByIngredients);
     }
 
     public List<FullDrinkView> findAllDrinks(int pageNumber) {
-        int startPosition = (pageNumber - 1) * PAGE_SIZE;
-
-        Pageable pageable = PageRequest.of(startPosition, PAGE_SIZE);
+        Pageable pageable = PageRequest.of(pageNumber - 1, PAGE_SIZE, Sort.by("drinkName"));
 
         List<Drink> drinks = drinkRepository.findAllDrinks(pageable);
         return fullDrinkMapper.toView(drinks);
     }
 
     public List<FullDrinkView> findByCategories(List<Long> category, int pageNumber) {
-        int startPosition = (pageNumber - 1) * PAGE_SIZE;
 
-        Pageable pageable = PageRequest.of(startPosition, PAGE_SIZE);
+        Pageable pageable = PageRequest.of(pageNumber - 1, PAGE_SIZE, Sort.by("drinkName"));
 
         List<Drink> drinks = drinkRepository.findByCategories(category, pageable);
         return fullDrinkMapper.toView(drinks);
     }
 
     public List<FullDrinkView> findByAlcoholStatus(List<String> alcoholStatus, int pageNumber) {
-        int startPosition = (pageNumber - 1) * PAGE_SIZE;
 
-        Pageable pageable = PageRequest.of(startPosition, PAGE_SIZE);
+        Pageable pageable = PageRequest.of(pageNumber - 1, PAGE_SIZE, Sort.by("drinkName"));
 
         List<Drink> drinks = drinkRepository.findByAlcoholStatus(alcoholStatus, pageable);
         return fullDrinkMapper.toView(drinks);
     }
 
     public List<FullDrinkView> findByCategoriesAndAlcoholStatus(List<Long> category, List<String> alcoholStatus, int pageNumber) {
-        int startPosition = (pageNumber - 1) * PAGE_SIZE;
 
-        Pageable pageable = PageRequest.of(startPosition, PAGE_SIZE);
+        Pageable pageable = PageRequest.of(pageNumber - 1, PAGE_SIZE, Sort.by("drinkName"));
 
         List<Drink> drinks = drinkRepository.findByCategoriesAndAlcoholStatus(category, alcoholStatus, pageable);
         return fullDrinkMapper.toView(drinks);

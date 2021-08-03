@@ -60,7 +60,7 @@ public class DrinkListController {
         if (!userInputValidator.validatePageNumber(pageNumberReq)) {
             currentPage = 1;
         } else {
-            currentPage = Integer.valueOf(pageNumberReq);
+            currentPage = Integer.parseInt(pageNumberReq);
         }
 
         final List<CategoryView> categories = categoryService.findAllCategories();

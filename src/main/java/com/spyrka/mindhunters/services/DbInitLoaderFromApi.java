@@ -26,9 +26,9 @@ public class DbInitLoaderFromApi {
 
     private static final Logger packageLogger = LoggerFactory.getLogger(DbInitLoaderFromApi.class.getName());
 
-    private final String API_URL_DRINKS = "http://isa-proxy.blueazurit.com/cocktails/1/search.php?f=";
+    private final String API_URL_DRINKS = "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=";
 
-    private final String API_URL_CATEGORIES = "http://isa-proxy.blueazurit.com/cocktails/1/list.php?c=list";
+    private final String API_URL_CATEGORIES = "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list";
 
     @Autowired
     private UploadDrinkMapper uploadDrinkMapper;

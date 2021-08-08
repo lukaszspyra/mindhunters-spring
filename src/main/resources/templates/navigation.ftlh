@@ -84,10 +84,10 @@
                     <#if role??>
                         <#if role = "USER" || role = "ADMIN" || role = "SUPER_ADMIN">
                             <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning"
-                                                    href="/logout">Logout</a>
+                                                    href="/oauth_logout">Logout</a>
                         <#else>
                             <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning"
-                                                    href="/login">Login</a>
+                                                    href="/oauth_login">Login</a>
                             </li>
                         </#if>
 

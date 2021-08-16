@@ -2,6 +2,7 @@ package com.spyrka.mindhunters.controllers;
 
 
 import com.spyrka.mindhunters.exceptions.JsonNotFound;
+import com.spyrka.mindhunters.jsonsupport.FileUploadProcessor;
 import com.spyrka.mindhunters.jsonsupport.JsonCategoryReader;
 import com.spyrka.mindhunters.models.Drink;
 import com.spyrka.mindhunters.models.json.CategoryJson;

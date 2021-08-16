@@ -12,9 +12,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/","/list","/search", "/css/**", "/img/**", "/js/**", "/static/**").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/oauth_login").authenticated()
+                .anyRequest().permitAll()
                 .and()
-                .oauth2Login();
+                .oauth2Login()
+                .defaultSuccessUrl("/");
     }
 }

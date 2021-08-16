@@ -2,15 +2,24 @@ package com.spyrka.mindhunters.services.mappers;
 
 
 import com.spyrka.mindhunters.models.dto.UserGoogleView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
+@Component
 public class GoogleUserMapper {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(GoogleUserMapper.class.getName());
 
-/*    public UserGoogleView mapGoogleResponseToUserGoogleView(Userinfoplus info) {
+    public UserGoogleView mapGoogleResponseToUserGoogleView(Map<String, Object> googleResponse) {
         UserGoogleView userView = new UserGoogleView();
-        userView.setEmail(info.getEmail());
-        userView.setName(info.getName());
+        userView.setName(googleResponse.getOrDefault("name", "Unanimous name").toString());
+        userView.setEmail(googleResponse.getOrDefault("email", "Unanimous email").toString());
+
+        LOGGER.info("UserView set from google Oauth2 response");
         return userView;
-    }*/
+    }
 
 }

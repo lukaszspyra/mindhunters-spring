@@ -19,7 +19,6 @@ public class DrinkController {
     @Autowired
     private DrinkService drinkService;
 
-
     @GetMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
     public ResponseEntity<FullDrinkView> readDrink(@PathVariable("id") Long id) {

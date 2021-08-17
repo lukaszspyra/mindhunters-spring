@@ -1,5 +1,6 @@
 package com.spyrka.mindhunters.services;
 
+import com.spyrka.mindhunters.context.ContextHolder;
 import com.spyrka.mindhunters.models.Drink;
 import com.spyrka.mindhunters.models.Ingredient;
 import com.spyrka.mindhunters.models.dto.FullDrinkView;
@@ -34,6 +35,9 @@ public class DrinkService {
 
     @Autowired
     private IngredientMapper ingredientMapper;
+
+    @Autowired
+    private AdminManagementRecipeService adminManagementRecipeService;
 
     @Transactional
     public FullDrinkView getFullDrinkViewById(Long drinkId) {
@@ -287,13 +291,9 @@ public class DrinkService {
         return getMaxPageNumber(querySize);
     }
 
-   /*
-
-
 
 
     public boolean deleteDrinkById(Long id) {
-
         return adminManagementRecipeService.deleteDrinkById(id);
     }
 
@@ -301,6 +301,5 @@ public class DrinkService {
         return adminManagementRecipeService.addOrUpdateDrink(id, updatedDrink, contextHolder);
     }
 
-*/
 
 }

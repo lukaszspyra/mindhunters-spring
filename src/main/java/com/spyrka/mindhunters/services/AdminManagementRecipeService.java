@@ -113,19 +113,18 @@ public class AdminManagementRecipeService {
 
     @Transactional
     public boolean deleteDrinkById(Long id) {
-        Drink drink = drinkRepository.findById(id).get();
+        if (drinkRepository.findById(id).isPresent()){
+            Drink drink = drinkRepository.findById(id).get();
 
-        if (drink == null){
-            return false;
+            List<User> users = drink.getUsers();
+            for (User user : users) {
+                user.getDrinks().remove(drink);
+            }
+            statisticsRepository.deleteStatisticsByDrink(drink);
+            drinkRepository.delete(drink);
+            return true;
         }
-
-        List<User> users = drink.getUsers();
-        for (User user : users) {
-            user.getDrinks().remove(drink);
-        }
-        statisticsRepository.deleteStatisticsByDrink(drink);
-        drinkRepository.delete(drink);
-        return true;
+        return false;
     }
 
     @Transactional

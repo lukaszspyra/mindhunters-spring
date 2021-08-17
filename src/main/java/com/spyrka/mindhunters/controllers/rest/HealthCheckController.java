@@ -17,5 +17,6 @@ public class HealthCheckController {
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
     public void checkHealth() {
+        //empty
     }
 }

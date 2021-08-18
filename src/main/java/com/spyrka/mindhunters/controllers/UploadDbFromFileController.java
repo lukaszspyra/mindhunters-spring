@@ -7,7 +7,6 @@ import com.spyrka.mindhunters.jsonsupport.JsonCategoryReader;
 import com.spyrka.mindhunters.models.Drink;
 import com.spyrka.mindhunters.models.json.CategoryJson;
 import com.spyrka.mindhunters.models.json.DrinkJson;
-import com.spyrka.mindhunters.parsers.JsonParserBean;
 import com.spyrka.mindhunters.services.DrinkService;
 import com.spyrka.mindhunters.services.JsonService;
 import com.spyrka.mindhunters.services.mappers.UploadDrinkMapper;

@@ -3,8 +3,6 @@ package com.spyrka.mindhunters.services;
 import com.spyrka.mindhunters.models.Drink;
 import com.spyrka.mindhunters.models.json.CategoryJson;
 import com.spyrka.mindhunters.models.json.DrinkJson;
-import com.spyrka.mindhunters.parsers.JsonCategoryApiReader;
-import com.spyrka.mindhunters.parsers.JsonParserApiBean;
 import com.spyrka.mindhunters.services.mappers.UploadDrinkMapper;
 import org.apache.http.client.fluent.Request;
 import org.slf4j.Logger;

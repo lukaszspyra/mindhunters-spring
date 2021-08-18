@@ -3,7 +3,6 @@ package com.spyrka.mindhunters.models.json;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.spyrka.mindhunters.parsers.JsonDrinkDeserializer;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

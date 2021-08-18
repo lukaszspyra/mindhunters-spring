@@ -2,7 +2,6 @@ package com.spyrka.mindhunters.models.json;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.spyrka.mindhunters.parsers.JsonCategoryDeserializer;
 
 import java.util.Objects;
 

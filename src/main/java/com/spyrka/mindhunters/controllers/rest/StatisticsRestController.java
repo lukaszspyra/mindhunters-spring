@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/stats")
-public class StatisticsController {
+public class StatisticsRestController {
 
     @Autowired
     StatisticsService statisticsService;

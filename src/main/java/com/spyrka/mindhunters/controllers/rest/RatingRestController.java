@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 @RestController
 @RequestMapping("/rate")
-public class RatingController {
+public class RatingRestController {
 
 
     @Autowired

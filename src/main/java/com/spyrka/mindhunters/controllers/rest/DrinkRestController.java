@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/drink-management")
-public class DrinkController {
+public class DrinkRestController {
 
     @Autowired
     private DrinkService drinkService;

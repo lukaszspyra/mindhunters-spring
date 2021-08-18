@@ -1,5 +1,7 @@
 package com.spyrka.mindhunters.services;
 
+import com.spyrka.mindhunters.jsonsupport.JsonCategoryApiReader;
+import com.spyrka.mindhunters.jsonsupport.JsonParserApiBean;
 import com.spyrka.mindhunters.models.Drink;
 import com.spyrka.mindhunters.models.json.CategoryJson;
 import com.spyrka.mindhunters.models.json.DrinkJson;

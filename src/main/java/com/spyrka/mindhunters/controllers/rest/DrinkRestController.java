@@ -51,7 +51,7 @@ public class DrinkRestController {
     }
 
 
-    @PostMapping("")
+    @PostMapping("/test1")
     public ResponseEntity<Drink> createDrink(Drink updateDrink, HttpServletRequest request) {
 
         ContextHolder contextHolder = new ContextHolder(request.getSession());

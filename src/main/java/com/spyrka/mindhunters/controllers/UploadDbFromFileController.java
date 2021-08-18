@@ -4,6 +4,7 @@ package com.spyrka.mindhunters.controllers;
 import com.spyrka.mindhunters.exceptions.JsonNotFound;
 import com.spyrka.mindhunters.jsonsupport.FileUploadProcessor;
 import com.spyrka.mindhunters.jsonsupport.JsonCategoryReader;
+import com.spyrka.mindhunters.jsonsupport.JsonParserBean;
 import com.spyrka.mindhunters.models.Drink;
 import com.spyrka.mindhunters.models.json.CategoryJson;
 import com.spyrka.mindhunters.models.json.DrinkJson;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 //@MultipartConfig
-@Controller("/admin/upload-json-file")
+@Controller
+@RequestMapping("/admin/upload-json-file")
 public class UploadDbFromFileController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadDbFromFileController.class.getName());

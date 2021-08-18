@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 
 @RestController
-@RequestMapping("/rate")
+@RequestMapping("/api/rate")
 public class RatingRestController {
 
 

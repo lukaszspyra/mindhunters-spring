@@ -19,7 +19,7 @@
 
 
 <div class="container-fluid" style="color:red; background-color: #1b1e21; text-align: center">
-    <label><h2> Something went terribly wrong. Our team is working hard to restore application server.
+    <label><h2>Our team is working hard to restore application server.
         </h2></label>
 </div>
 
@@ -32,7 +32,7 @@
                     <div class="container welcome-settings">
                         <div class="masthead-subheading  text-warning glow " id="welcomeDiv"
                              style=font-size:30px;text-align:center>
-                            Our team is working hard to restore application server.
+                            Our team is working hard to restore the application.
                         </div>
                     </div>
                 </header>

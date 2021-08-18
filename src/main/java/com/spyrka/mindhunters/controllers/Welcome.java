@@ -12,9 +12,7 @@ import java.io.UnsupportedEncodingException;
 @Controller
 public class Welcome {
 
-    @GetMapping(
-            path = "/"
-    )
+    @GetMapping("/")
     public String home(Model dataModel, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
 
         resp.setContentType("text/html; charset=UTF-8");

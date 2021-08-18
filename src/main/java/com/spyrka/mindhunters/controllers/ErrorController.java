@@ -21,6 +21,5 @@ public class ErrorController {
         req.setCharacterEncoding("UTF-8");
         LOGGER.error("Bad request: {}", req.getPathInfo());
         return "error";
-
     }
 }

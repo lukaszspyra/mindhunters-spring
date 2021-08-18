@@ -32,7 +32,7 @@
                     <div class="container welcome-settings">
                         <div class="masthead-subheading  text-warning glow " id="welcomeDiv"
                              style=font-size:30px;text-align:center>
-                            Something went terribly wrong. Our team is working hard to restore application server.
+                            Our team is working hard to restore application server.
                         </div>
                     </div>
                 </header>

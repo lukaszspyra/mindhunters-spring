@@ -18,7 +18,7 @@ public class UserInputValidator {
     }
 
     public String removeExtraSpaces(String input) {
-        return input.replaceAll(" +", " ");
+        return input.replaceAll(" +", " ").trim();
     }
 
     public boolean validatePageNumber(String page) {

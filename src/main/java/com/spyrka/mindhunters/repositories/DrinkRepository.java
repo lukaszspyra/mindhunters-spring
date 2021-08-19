@@ -15,7 +15,7 @@ public interface DrinkRepository extends JpaRepository<Drink, Long> {
     @Query("SELECT c.name, COUNT(d.drinkName) as quantity FROM Drink d JOIN d.category c  WHERE d.isApproved = true " +
             "GROUP BY c" +
             ".name ORDER BY c.name ASC")
-    List getDrinksInAllCategories();
+    List<Drink> getDrinksInAllCategories();
 
 
     @Query("SELECT d FROM Drink d WHERE LOWER( d.drinkName) LIKE LOWER( ?1 ) and d.isApproved = true")

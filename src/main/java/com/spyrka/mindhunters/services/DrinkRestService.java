@@ -34,7 +34,7 @@ public class DrinkRestService {
 
     public List<DrinkLiveSearchView> findByNameLiveSearch(String partialDrinkName) {
         LOGGER.debug("Searching by name in livesearch");
-
+        partialDrinkName = partialDrinkName + "%";
         Pageable pageable = PageRequest.of(0, LIVE_SEARCH_LIMIT);
         final List<Drink> drinks = drinkRepository.findDrinksByDrinkNameContaining(partialDrinkName, pageable);
 

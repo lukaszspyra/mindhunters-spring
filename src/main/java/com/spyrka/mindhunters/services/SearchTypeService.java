@@ -120,14 +120,14 @@ public class SearchTypeService {
             return dataModel;
         }
 
-        partialDrinkName = userInputValidator.removeExtraSpaces(partialDrinkName);
+        partialDrinkName = userInputValidator.removeExtraSpaces(partialDrinkName) + "%";
         maxPage = drinkRepository.countPagesByDrinkNameContaining(partialDrinkName);
 
         currentPage = userInputValidator.compareCurrentPageWithMaxPage(currentPage, maxPage);
 
 
         final List<FullDrinkView> foundDrinksByName =
-                drinkService.findDrinksByName(partialDrinkName.trim(), currentPage);
+                drinkService.findDrinksByName(partialDrinkName, currentPage);
 
         if (foundDrinksByName == null || foundDrinksByName.isEmpty()) {
             dataModel.put("errorMessage", "Drink not found.\n");

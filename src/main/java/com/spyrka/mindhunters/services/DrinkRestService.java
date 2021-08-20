@@ -45,7 +45,7 @@ public class DrinkRestService {
         LOGGER.debug("Searching by ingredients in livesearch");
 
         Pageable pageable = PageRequest.of(0, LIVE_SEARCH_LIMIT);
-        final List<Ingredient> ingredients = ingredientRepository.findTop10ByNameContaining(partialIngredientName, pageable);
+        final List<Ingredient> ingredients = ingredientRepository.findByNameContaining(partialIngredientName, pageable);
 
         return liveSearchMapper.ingredientsToView(ingredients);
     }

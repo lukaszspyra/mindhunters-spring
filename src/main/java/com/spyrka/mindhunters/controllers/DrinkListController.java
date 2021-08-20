@@ -189,7 +189,7 @@ public class DrinkListController {
 
         if (email != null && !email.isEmpty()) {
 
-            userService.saveOrDeleteFavourite(email, drinkId);
+            userService.updateUserFavouriteDrinks(email, drinkId);
 
         }
 

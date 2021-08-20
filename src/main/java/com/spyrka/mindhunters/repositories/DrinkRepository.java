@@ -87,12 +87,4 @@ public interface DrinkRepository extends JpaRepository<Drink, Long> {
             ".isApproved = true")
     int countPagesByIngredients(List<Ingredient> ingredients);
 
-
-/*ALL METHODS HERE USED FOR PAGINATION IN JEE - PROBABLY NOT NEEDED IN SPRING
-TODO remove these when complete drinkService methods implementations
-
-
-
-
-    */
 }

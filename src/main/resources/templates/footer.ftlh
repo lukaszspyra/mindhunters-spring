@@ -8,6 +8,7 @@
                     <#assign aDateTime = .now>
                     <#assign aDate = aDateTime?date>
                     Kamil, Łukasz , Szymon - Copyrights &copy; All reserved ${aDate?string.yyyy}.
+                    Conversion by Łukasz.
                 </i>
             </div>
         </div>

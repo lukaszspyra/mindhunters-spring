@@ -74,19 +74,26 @@ public class UserService {
         return userMapper.toView(user);
     }
 
-    public void saveOrDeleteFavourite(String email, String drinkId) {
+    public void updateUserFavouriteDrinks(String email, String drinkId) {
 
         Drink drink = drinkRepository.findById(Long.parseLong(drinkId)).orElseThrow();
         User user = userRepository.findByEmail(email).orElseThrow();
 
         List<Drink> favouriteDrinks = user.getDrinks();
 
+        //TODO: moze lepiej zamiast obiektu po id - co sie stanie jak edytujemy obiekt? czy bedzie podwojnie w ulubionych?
+//        List<Long> favouriteDrinkIds = favouriteDrinks.stream()
+//                .map(Drink::getId)
+//                .collect(Collectors.toUnmodifiableList());
+
         if (!favouriteDrinks.contains(drink)) {
             user.getDrinks().add(drink);
+            userRepository.save(user);
             LOGGER.info("User email = {} added drink ID = {} to favourites", email, drinkId);
 
         } else {
             user.getDrinks().remove(drink);
+            userRepository.save(user);
             LOGGER.info("User email = {} deleted drink ID = {} from favourites", email, drinkId);
 
         }

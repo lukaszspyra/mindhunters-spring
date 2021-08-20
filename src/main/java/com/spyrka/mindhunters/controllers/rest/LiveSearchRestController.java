@@ -2,6 +2,7 @@ package com.spyrka.mindhunters.controllers.rest;
 
 
 import com.spyrka.mindhunters.models.dto.DrinkLiveSearchView;
+import com.spyrka.mindhunters.models.dto.IngredientView;
 import com.spyrka.mindhunters.services.DrinkRestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,5 +25,8 @@ public class LiveSearchRestController {
         return ResponseEntity.ok(drinkRestService.findByNameLiveSearch(partialName));
     }
 
-
+    @GetMapping("/ingredient/{partialName}")
+    public ResponseEntity<List<IngredientView>> ingredient(@PathVariable("partialName") String partialName) {
+        return ResponseEntity.ok(drinkRestService.findIngredientsLiveSearch(partialName));
+    }
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,12 +64,12 @@ public class FavouriteDrinkListController {
 
         dataModel.put("drinkList", drinkViewList);
 
-        List<Integer> favouritesId = null;
+        List<Integer> favouritesId = new ArrayList<>();
 
         if (!drinkViewList.isEmpty()) {
             favouritesId = drinkViewList.stream()
                     .map(FullDrinkView::getId)
-                    .map(aLong -> Integer.parseInt(aLong.toString()))
+                    .map(Long::intValue)
                     .collect(Collectors.toList());
 
             dataModel.put("favourites", favouritesId);

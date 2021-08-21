@@ -41,24 +41,26 @@
                             <div class="container ml-0 pl-0 mr-0 pr-0 ">
                                 <div class="row list-element" >
                                     <div class="col-md-auto d-flex justify-content-center " style="min-width: 205px" >
+
                                         <div class="relative" id="FAVOURITES">
                                             <#if drink.image!?trim?has_content>
                                                 <img src="${drink.image}" class="thumbnail_list justify-content-center">
                                             <#else>
-                                                <img src="img/drinkimage-not-avail.jpg"
+                                                <img src="/img/drinkimage-not-avail.jpg"
                                                      class=" thumbnail_list justify-content-center">
                                             </#if>
                                             <#if name??>
-                                            <i class="icon-lock-star icons <#if favourites!?seq_contains(drink.id)>color_toggle_on </#if> "   title="Add/delete from favourites" >
-                                                <svg id="star-fill" class="bi bi-star-fill  " width="1em" height="1em"
-                                                     viewBox="0 0 16 16"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-                                                </svg>
-                                            </i>
-                                            <p hidden>${drink.id}</p>
+                                                <i class="icon-lock-star icons <#if favourites!?seq_contains(drink.id)>color_toggle_on </#if> " title="Add/delete from favourites" >
+                                                    <svg id="star-fill" class="bi bi-star-fill  " width="1em" height="1em"
+                                                         viewBox="0 0 16 16"
+                                                         xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                                                    </svg>
+                                                </i>
+                                                <p hidden>${drink.id}</p>
                                             </#if>
                                         </div>
+
                                     </div>
                                     <div class="media-body  line-clamp col-sm-8 ml-0 pl-1 mr-0 pr-0"
 

@@ -28,8 +28,8 @@ public class StatisticsRestController {
     }
 
     @GetMapping("/drinks/category")
-    public ResponseEntity<List<StatisticsChartView>> getDrinksInAllCategories() {
-        return ResponseEntity.ok(statisticsService.getDrinksInAllCategories());
+    public ResponseEntity<List<StatisticsChartView>> getAllDrinksByCategory() {
+        return ResponseEntity.ok(statisticsService.getAllDrinksByCategory());
     }
 
 }

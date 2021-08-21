@@ -10,6 +10,7 @@ import com.spyrka.mindhunters.repositories.StatisticsRepository;
 import com.spyrka.mindhunters.services.mappers.LiveSearchMapper;
 import com.spyrka.mindhunters.services.mappers.StatisticsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.List;
 @Service
 public class StatisticsService {
 
+    private final static int TOP_STATS_LIMIT = 10;
 
     @Autowired
     private StatisticsRepository statisticsRepository;
@@ -41,7 +43,7 @@ public class StatisticsService {
     }
 
     public List<StatisticsChartView> getTopDrinks() {
-        List statistics = statisticsRepository.getTopDrinks();
+        List statistics = statisticsRepository.getTopDrinks(PageRequest.of(0, TOP_STATS_LIMIT));
         Object[] row;
         List<StatisticsChartView> views = new ArrayList<>();
 
@@ -68,29 +70,16 @@ public class StatisticsService {
 
     public List<StatisticsChartView> getCategoriesStats() {
         List statistics = statisticsRepository.getCategoriesStats();
-        Object[] row;
-        List<StatisticsChartView> views = new ArrayList<>();
-
-        for (Object o : statistics) {
-
-            if (o instanceof Object[]) {
-
-                row = (Object[]) o;
-
-                StatisticsChartView view = new StatisticsChartView();
-                view.setName(String.valueOf(row[0]));
-                view.setQuantity((Long) row[1]);
-
-                views.add(view);
-
-            }
-        }
-        return views;
+        return extractToStatisticsChartViews(statistics);
     }
 
 
-    public List<StatisticsChartView> getDrinksInAllCategories() {
+    public List<StatisticsChartView> getAllDrinksByCategory() {
         List statistics = drinkRepository.getDrinksInAllCategories();
+        return extractToStatisticsChartViews(statistics);
+    }
+
+    private List<StatisticsChartView> extractToStatisticsChartViews(List statistics) {
         Object[] row;
         List<StatisticsChartView> views = new ArrayList<>();
 
@@ -108,9 +97,7 @@ public class StatisticsService {
             }
         }
 
-
         return views;
     }
-
 
 }

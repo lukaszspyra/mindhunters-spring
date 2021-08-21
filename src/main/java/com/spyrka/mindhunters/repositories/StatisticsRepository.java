@@ -14,16 +14,8 @@ public interface StatisticsRepository extends JpaRepository<Statistics, Long> {
 
     List getTopDrinks(Pageable pageable);
 
-    List getTopDrinks();
-
     List getCategoriesStats();
 
     void deleteStatisticsByDrink(@Valid Drink drink);
-
-    default List getTop10Drinks() {
-        return getTopDrinks(PageRequest.of(0, 10));
-    }
-
-    //TODO metoda do statystyk przeniesiona do drinkRepository
 
 }

@@ -38,9 +38,13 @@
                             <div class="container ml-0 pl-0 mr-0 pr-0 ">
                                 <div class="row list-element">
                                     <div class="col-md-auto d-flex justify-content-center " style="min-width: 205px">
-                                        <div class="relative" id="ID04">
-                                            <img src="${drink.image}"
-                                                 class=" thumbnail_list justify-content-center" alt="...">
+                                        <div class="relative" id="FAVOURITES">
+                                            <#if drink.image!?trim?has_content>
+                                                <img src="${drink.image}" class="thumbnail_list justify-content-center">
+                                            <#else>
+                                                <img src="img/drinkimage-not-avail.jpg"
+                                                     class=" thumbnail_list justify-content-center">
+                                            </#if>
                                             <#if name??>
                                                 <i class="icon-lock-star icons <#if favourites!?seq_contains(drink.id)>color_toggle_on </#if> "
                                                    title="Add/delete from favourites">

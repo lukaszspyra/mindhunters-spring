@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Mindhunters</title>
-    <link href="css/drink_list.css" rel="stylesheet">
+    <link href="/css/drink_list.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 
 </head>
@@ -120,7 +120,7 @@
 
 <!-- Bootstrap core JS-->
 
-<script src="js/receipeList.js"></script>
+<script src="/js/receipeList.js"></script>
 
 </body>
 </html>

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg" id="mainNav" style="background-color: #1b1e21">
     <div class="container-fluid">
         <a href="/" class="navbar-brand ">
-            <img  src="img/logomindhunters.jpg" alt="logo">
+            <img  src="/img/logomindhunters.jpg" alt="logo">
         </a>
 
         <div class="navbar-toggler  text-warning" type="button"

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Mindhunters</title>
-    <link href="css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 
     <style>
@@ -99,7 +99,7 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<script src="js/homePage.js"></script>
+<script src="/js/homePage.js"></script>
 
 </body>
 </html>

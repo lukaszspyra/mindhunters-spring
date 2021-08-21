@@ -8,7 +8,7 @@
     <#-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link href="css/styleSingleViewSearch.css" rel="stylesheet">
+    <link href="/css/styleSingleViewSearch.css" rel="stylesheet">
 
     <#-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
@@ -167,7 +167,7 @@
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
-<script src="js/singleDrinkView.js"></script>
+<script src="/js/singleDrinkView.js"></script>
 
 <#-- RateYo rating plugin -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>

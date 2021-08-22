@@ -9,7 +9,6 @@ $(document).ready(function () {
 
             $(this).children('i').toggleClass("color_toggle_on");
     });
-    window.location.reload();
 });
 
 $(document).ready(function () {

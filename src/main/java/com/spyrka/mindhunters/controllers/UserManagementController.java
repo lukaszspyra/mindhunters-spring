@@ -63,9 +63,10 @@ public class UserManagementController {
         String adminId = req.getParameter("a");
 
         if (userId == null || userId.isBlank()) {
-            adminUserService.removeAdminRole(adminId);
+            adminUserService.setRole(adminId, "USER");
+        } else {
+            adminUserService.setRole(userId, "ADMIN");
         }
-        adminUserService.setAdminRole(userId);
         dataModel.put("users", adminUserService.showUsers());
         model.addAllAttributes(dataModel);
 

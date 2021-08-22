@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,44 +32,23 @@ public class AdminUserService {
     private UserInputValidator userInputValidator;
 
 
-    public boolean setAdminRole(String userId) {
-
+    public void setRole(String userId, String role) {
         final Long longId = userInputValidator.stringToLongConverter(userId);
 
         if (longId < 0) {
-            return false;
+            return;
         }
 
-        User userById = userRepository.findById(longId).get();
+        Optional<User> optionalUserById = userRepository.findById(longId);
 
-        if ("SUPER_ADMIN".equalsIgnoreCase(userById.getRole().getName())) {
-            return false;
+        if (optionalUserById.isEmpty() || "SUPER_ADMIN".equalsIgnoreCase(optionalUserById.get().getRole().getName())) {
+            return;
         }
-        userById.setRole(roleRepository.findRoleByName("ADMIN").get());
-        User adminUser = userRepository.save(userById);
 
-        return adminUser.getRole().getName().equalsIgnoreCase("ADMIN");
+        User userById = optionalUserById.get();
+        userById.setRole(roleRepository.findRoleByName(role).get());
+        userRepository.save(userById);
     }
-
-    public boolean removeAdminRole(String adminId) {
-        final Long longId = userInputValidator.stringToLongConverter(adminId);
-
-        if (longId < 0) {
-            return false;
-        }
-
-        User userById = userRepository.findById(longId).orElseThrow(IllegalArgumentException::new);
-
-        if ("SUPER_ADMIN".equalsIgnoreCase(userById.getRole().getName())) {
-            return false;
-        }
-        userById.setRole(roleRepository.findRoleByName("USER").get());
-        User ordinaryUser = userRepository.save(userById);
-
-        return ordinaryUser.getRole().getName().equalsIgnoreCase("USER");
-
-    }
-
 
     public List<UserView> showUsers() {
 
@@ -77,6 +57,5 @@ public class AdminUserService {
                 .map(user -> userMapper.toView(user))
                 .collect(Collectors.toList());
     }
-
 
 }

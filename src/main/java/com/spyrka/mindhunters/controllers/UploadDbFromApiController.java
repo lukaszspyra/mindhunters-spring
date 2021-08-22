@@ -7,7 +7,6 @@ import com.spyrka.mindhunters.models.Drink;
 import com.spyrka.mindhunters.models.json.CategoryJson;
 import com.spyrka.mindhunters.models.json.DrinkJson;
 import com.spyrka.mindhunters.services.DrinkService;
-import com.spyrka.mindhunters.services.JsonService;
 import com.spyrka.mindhunters.services.mappers.UploadDrinkMapper;
 import org.apache.http.client.fluent.Request;
 import org.slf4j.Logger;
@@ -31,11 +30,12 @@ public class UploadDbFromApiController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadDbFromApiController.class.getName());
 
-    @Autowired
-    private UploadDrinkMapper uploadDrinkMapper;
+    private final String API_URL_DRINKS = "https://www.thecocktaildb.com/api/json/v1/1/search.php?f=";
+
+    private final String API_URL_CATEGORIES = "https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list";
 
     @Autowired
-    private JsonService jsonService;
+    private UploadDrinkMapper uploadDrinkMapper;
 
     @Autowired
     private DrinkService drinkService;
@@ -49,7 +49,7 @@ public class UploadDbFromApiController {
         List<DrinkJson> drinkJsons = new ArrayList<>();
 
         for (char alphabet = 'a'; alphabet <= 'z'; alphabet++) {
-            Request fromAlphabet = Request.Get("http://isa-proxy.blueazurit.com/cocktails/1/search.php?f=" + alphabet);
+            Request fromAlphabet = Request.Get(API_URL_DRINKS + alphabet);
             String stringDrinkJson = fromAlphabet.execute().returnContent().asString();
 
             List<DrinkJson> letterDrinkJsons = Optional.ofNullable(jsonParserApiBean.jsonDrinkReaderFromString(stringDrinkJson))
@@ -59,7 +59,7 @@ public class UploadDbFromApiController {
             }
         }
 
-        Request getCat = Request.Get("http://isa-proxy.blueazurit.com/cocktails/1/list.php?c=list");
+        Request getCat = Request.Get(API_URL_CATEGORIES);
         String stringCatDrinkJson = getCat.execute().returnContent().asString();
         List<CategoryJson> categoryJson = new ArrayList<>();
         categoryJson = JsonCategoryApiReader.jsonCategoryReader(stringCatDrinkJson);

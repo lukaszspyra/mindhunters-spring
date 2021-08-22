@@ -15,22 +15,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.io.File;
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-//@MultipartConfig
+
 @Controller
 @RequestMapping("/admin/upload-json-file")
 public class UploadDbFromFileController {
@@ -52,22 +49,10 @@ public class UploadDbFromFileController {
     @Autowired
     private JsonParserBean jsonParserBean;
 
-    @GetMapping("/admin/upload-json-file")
-    public void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws IOException {
 
-        String filename = URLDecoder.decode(req.getPathInfo().substring(1), "UTF-8");
-        File file = new File(fileUploadProcessor.getUploadJsonFilesPath(), filename);
-        resp.setHeader("Content-Type", Files.probeContentType(file.toPath()));
-        resp.setHeader("Content-Length", String.valueOf(file.length()));
-        resp.setHeader("Content-Disposition", "inline; filename=\"" + file.getName() + "\"");
-        Files.copy(file.toPath(), resp.getOutputStream());
-    }
-
-    @PostMapping("/admin/upload-json-file")
-    public void doPost(HttpServletRequest req, HttpServletResponse resp)
+    @PostMapping()
+    public void doPost(MultipartHttpServletRequest req, HttpServletResponse resp, RedirectAttributes attributes)
             throws IOException, ServletException {
-
         Part jsonPath = req.getPart("jsonFile");
         List<DrinkJson> drinkJsons = new ArrayList<>();
         try {
@@ -91,6 +76,5 @@ public class UploadDbFromFileController {
         }
         resp.sendRedirect("/admin/page");
     }
-
 
 }

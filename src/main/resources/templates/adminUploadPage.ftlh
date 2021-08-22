@@ -29,19 +29,23 @@
         </div>
         <div class="container-fluid load-file-browse" id="over-photo3">
             <div class="load-file-div container-fluid" id="load-file-div">
-                <form method="post" action="/admin/upload-json-file" enctype="multipart/form-data"
+                <form method="POST" action="/admin/upload-json-file" enctype="multipart/form-data"
                       id="vis-of-btn">
                     <div class="txt-center">
                         <p class="text-warning">
                             Load DB of Drinks from file
                         </p>
                     </div>
+
+
                     <p class="text-warning p-padding">Select DrinkJson</p>
                     <div class="text-warning lf-div col-8" style="display: inline-block">
                         <label class="submit-btn" style="display: inline-block"></label><br>
                         <input type="file" id="jsonFile" name="jsonFile" multiple
                                class="btn btn-background text-uppercase text-warning size-input-design">
                     </div>
+
+
                     <p class="text-warning p-padding">Select CategoryJson</p>
                     <div class="text-warning lf-div col-8" style="display: inline-block">
                         <label class="submit-btn" style="display: inline-block"></label><br>

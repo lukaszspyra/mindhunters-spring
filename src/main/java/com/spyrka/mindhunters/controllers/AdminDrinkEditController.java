@@ -22,10 +22,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Controller
-public class AdminDrinkEditController  {
+public class AdminDrinkEditController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminDrinkEditController.class.getName());
 
@@ -46,7 +45,6 @@ public class AdminDrinkEditController  {
     protected String doGet(Model model, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
-
         ContextHolder contextHolder = new ContextHolder(req.getSession());
 
         String role = contextHolder.getRole();
@@ -56,25 +54,16 @@ public class AdminDrinkEditController  {
         dataModel.put("role", contextHolder.getRole());
 
         if (role != null && (role.equalsIgnoreCase("SUPER_ADMIN") || role.equalsIgnoreCase("ADMIN"))) {
-
             List<FullDrinkView> toApproveList = drinkService.findEditedDrinksToApprove();
-
             if (!toApproveList.isEmpty()) {
-                List<Object> toApproveListModel = toApproveList.stream()
-                        .map(FullDrinkView::getId)
-                        .map(aLong -> Integer.parseInt(aLong.toString()))
-                        .collect(Collectors.toList());
-
                 dataModel.put("drinkList", toApproveList);
             }
-
         }
 
         dataModel.put("typeOfAction", "edited");
         dataModel.put("url", "/edit");
 
         model.addAllAttributes(dataModel);
-
         return "recipeToApproveList";
     }
 
@@ -92,17 +81,17 @@ public class AdminDrinkEditController  {
         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
 
-        String idToCreate = req.getParameter("create");
-        String idToDelete = req.getParameter("delete");
+        String idToApprove = req.getParameter("approve");
+        String idToReject = req.getParameter("reject");
 
-        if (idToCreate != null && !idToCreate.isBlank()) {
-            Drink approvedDrink = adminManagementRecipeService.setApprovedEditedDrink(Long.parseLong(idToCreate));
+        if (idToApprove != null && !idToApprove.isBlank()) {
+            Drink approvedDrink = adminManagementRecipeService.approveDrinkEdit(Long.parseLong(idToApprove));
             String emailContent = userDrinkProposalEmailBuilder.createContent(approvedDrink, "accepted");
             emailSender.sendEmail(emailContent, approvedDrink.getConfirmUserEmail());
         }
 
-        if (idToDelete != null && !idToDelete.isBlank()) {
-            Drink deletedDrink = adminManagementRecipeService.rejectDrinkProposal(Long.parseLong(idToDelete));
+        if (idToReject != null && !idToReject.isBlank()) {
+            Drink deletedDrink = adminManagementRecipeService.rejectDrinkProposal(Long.parseLong(idToReject));
             String userEmail = deletedDrink.getConfirmUserEmail();
             String emailContent = userDrinkProposalEmailBuilder.createContent(deletedDrink, "deleted");
             emailSender.sendEmail(emailContent, userEmail);
@@ -110,26 +99,16 @@ public class AdminDrinkEditController  {
         }
 
         if (role != null && (role.equalsIgnoreCase("SUPER_ADMIN") || role.equalsIgnoreCase("ADMIN"))) {
-
             List<FullDrinkView> toApproveList = drinkService.findEditedDrinksToApprove();
-
             if (!toApproveList.isEmpty()) {
-                List<Object> toApproveListModel = toApproveList.stream()
-                        .map(FullDrinkView::getId)
-                        .map(aLong -> Integer.parseInt(aLong.toString()))
-                        .collect(Collectors.toList());
-
                 dataModel.put("drinkList", toApproveList);
             }
-
         }
 
         dataModel.put("typeOfAction", "edited");
         dataModel.put("url", "edit");
 
-        model.mergeAttributes(dataModel);
-
+        model.addAllAttributes(dataModel);
         return "recipeToApproveList";
     }
-
 }

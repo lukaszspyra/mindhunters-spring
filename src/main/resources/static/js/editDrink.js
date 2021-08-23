@@ -12,7 +12,7 @@ $(document).ready(function () {
             let params = new URLSearchParams(url.search.slice(1));
             let drinkId = parseInt(params.get('id'));
 
-            if (isNaN(drinkId) || drinkId == 0) {
+            if (isNaN(drinkId) || drinkId === 0) {
                 drinkId = "";
             }
 

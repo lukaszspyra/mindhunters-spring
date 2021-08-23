@@ -290,16 +290,4 @@ public class DrinkService {
         int querySize = drinkRepository.countPagesByIngredients(ingredients);
         return getMaxPageNumber(querySize);
     }
-
-
-
-    public boolean deleteDrinkById(Long id) {
-        return adminManagementRecipeService.deleteDrinkById(id);
-    }
-
-    public boolean addOrUpdate(Long id, Drink updatedDrink, ContextHolder contextHolder) {
-        return adminManagementRecipeService.addOrUpdateDrink(id, updatedDrink, contextHolder);
-    }
-
-
 }

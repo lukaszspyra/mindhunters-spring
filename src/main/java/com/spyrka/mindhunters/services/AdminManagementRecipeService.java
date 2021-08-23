@@ -102,6 +102,12 @@ public class AdminManagementRecipeService {
         return drinkIngredientsList;
     }
 
+    /**
+     * Removes drinks from database - original and temporary, used to save delete proposed record
+     *
+     * @param approvedDrinkId for removal
+     * @return removed drink
+     */
     public Drink setApprovedDeleteDrink(long approvedDrinkId) {
         Drink approvedDrink = drinkRepository.findById(approvedDrinkId).orElseThrow();
         drinkRepository.deleteIngredientsFromDrink(approvedDrinkId);

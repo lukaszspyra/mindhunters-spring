@@ -109,7 +109,7 @@
                             <form method="post" action="/admin/to-approve-list${"/" + drink.manageAction?lower_case}">
                                 <div class="list-group  list-element">
                                     <div class="list-group-item sidebar-list">
-                                        <input type="hidden" name="create" value="${drink.id}"/>
+                                        <input type="hidden" name="approve" value="${drink.id}"/>
                                         <input id="search-by-name" class="rounded-input" type="submit" value="Approve">
                                     </div>
                                 </div>
@@ -118,18 +118,13 @@
                             <form method="post" action="/admin/to-approve-list${"/" + drink.manageAction?lower_case}">
                                 <div class="list-group  list-element">
                                     <div class="list-group-item sidebar-list">
-                                        <input type="hidden" name="delete" value="${drink.id}"/>
+                                        <input type="hidden" name="reject" value="${drink.id}"/>
                                         <input id="search-by-name" class="rounded-input" type="submit" value="Reject">
                                     </div>
                                 </div>
                             </form>
 
                         </li>
-
-
-
-
-
 
                     </#list>
 

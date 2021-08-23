@@ -11,6 +11,11 @@
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Mindhunters</title>
     <link href="/css/drink_list.css" rel="stylesheet">
+
+    <#--Adds favicon-->
+    <link rel="shortcut icon" href="/img/favicon.ico" >
+    <link rel="icon" href="/img/favicon.ico">
+
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 
 </head>

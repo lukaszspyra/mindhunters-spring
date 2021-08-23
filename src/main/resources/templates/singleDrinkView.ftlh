@@ -10,6 +10,10 @@
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="/css/styleSingleViewSearch.css" rel="stylesheet">
 
+    <#--Adds favicon-->
+    <link rel="shortcut icon" href="/img/favicon.ico" >
+    <link rel="icon" href="/img/favicon.ico">
+
     <#-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 

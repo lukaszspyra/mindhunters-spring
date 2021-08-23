@@ -9,6 +9,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <#--Adds favicon-->
+    <link rel="shortcut icon" href="/img/favicon.ico" >
+    <link rel="icon" href="/img/favicon.ico">
+
     <title>Not found</title>
     <link href="/css/style.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>

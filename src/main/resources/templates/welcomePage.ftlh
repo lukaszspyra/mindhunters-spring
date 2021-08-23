@@ -13,6 +13,11 @@
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Mindhunters</title>
     <link href="/css/style.css" rel="stylesheet">
+
+    <#--Adds favicon-->
+    <link rel="shortcut icon" href="/img/favicon.ico" >
+    <link rel="icon" href="/img/favicon.ico">
+
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
@@ -23,7 +28,7 @@
 <div class="body part1-top" id="body part1-top" style="background-color: #1b1e21">
     <div class="container-fluid" id="part1-top">
         <div style="position: relative">
-            <img class="backGround mx-auto" src="img/mindhunters.jpg"
+            <img class="backGround mx-auto" src="/img/mindhunters.jpg"
             alt="background" id="glasses">
             <div class="over-photo1">
                 <header class="masthead">

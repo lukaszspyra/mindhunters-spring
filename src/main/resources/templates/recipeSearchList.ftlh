@@ -14,6 +14,11 @@
     <!--  Mindhunterrs CSS -->
     <link href="/css/drink_list.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+
+    <#--Adds favicon-->
+    <link rel="shortcut icon" href="/img/favicon.ico" >
+    <link rel="icon" href="/img/favicon.ico">
+
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
 
     <!-- Scripts for jquery/autocomplete/ajax/bootstrap -->

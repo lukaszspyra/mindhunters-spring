@@ -51,4 +51,13 @@ public class DrinkIgredientMapper {
 
         return drinkIngredient;
     }
+
+    public List<DrinkIngredient> toEntity(List<DrinkIngredientView> drinkIngredientViews) {
+        List<DrinkIngredient> drinkIngredients = new ArrayList<>();
+        for (DrinkIngredientView drinkIngredientView : drinkIngredientViews) {
+            drinkIngredients.add(toEntity(drinkIngredientView));
+        }
+        return drinkIngredients;
+    }
+
 }

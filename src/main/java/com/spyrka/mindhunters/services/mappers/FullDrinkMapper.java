@@ -25,6 +25,9 @@ public class FullDrinkMapper {
     @Autowired
     private CategoryMapper categoryMapper;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Transactional
     public FullDrinkView toView(Drink drink) {
         FullDrinkView fullDrinkView = new FullDrinkView();
@@ -52,7 +55,7 @@ public class FullDrinkMapper {
     }
 
 
-    public Drink toEntity(FullDrinkView fullDrinkView) {
+    public Drink toEntity(FullDrinkView fullDrinkView, boolean isApproved) {
         Drink drink = new Drink();
 
         drink.setId(fullDrinkView.getId());
@@ -65,11 +68,19 @@ public class FullDrinkMapper {
                 .map(drinkIgredientMapper::toEntity)
                 .collect(Collectors.toList()));
         drink.setImage(fullDrinkView.getImage());
+        drink.setUsers(userMapper.toEntity(fullDrinkView.getUsers()));
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm");
-        String date = fullDrinkView.getDate();
-        drink.setDate(LocalDateTime.now());
-        drink.setApproved(true);  //TODO : change mocked true
+        String dateAsString = fullDrinkView.getDate();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        if (dateAsString == null) {
+            LocalDateTime formatDateTime = LocalDateTime.parse(dateAsString, dateFormatter);
+            drink.setDate(formatDateTime);
+        } else {
+            drink.setDate(LocalDateTime.now());
+        }
+        drink.setConfirmUserEmail(fullDrinkView.getConfirmUserEmail());
+        drink.setApproved(isApproved);
         return drink;
     }
 }

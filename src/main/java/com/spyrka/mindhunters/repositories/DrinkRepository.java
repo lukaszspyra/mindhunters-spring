@@ -48,11 +48,6 @@ public interface DrinkRepository extends JpaRepository<Drink, Long> {
     @Query("SELECT d FROM Drink d where d.isApproved = false ")
     List<Drink> findDrinksToApprove();
 
-
-    @Query("DELETE FROM DrinkIngredient di where di.drinkId.id = ?1")
-    void deleteIngredientsFromDrink(Long drinkId);
-
-
     @Query("SELECT d FROM Drink d where d.isApproved = false AND d.manageAction LIKE ?1")
     List<Drink> findOldDrinksToApprove(String action);
 

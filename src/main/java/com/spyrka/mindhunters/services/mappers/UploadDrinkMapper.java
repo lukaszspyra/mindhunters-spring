@@ -25,8 +25,6 @@ public class UploadDrinkMapper {
 
         Drink drink = new Drink();
 
-        String categoryName = drinkJson.getCategoryName();
-
         drink.setDrinkId(drinkJson.getDrinkId());
         drink.setDrinkName(drinkJson.getDrinkName());
 

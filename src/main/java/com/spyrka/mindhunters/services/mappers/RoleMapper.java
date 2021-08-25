@@ -16,5 +16,11 @@ public class RoleMapper {
         return roleView;
     }
 
+    public Role toEntity(RoleView roleView) {
 
+        Role role = new Role();
+        role.setId(roleView.getId());
+        role.setName(roleView.getName());
+        return role;
+    }
 }

@@ -14,7 +14,7 @@ public class UserView {
 
     private String email;
 
-    private String role;
+    private RoleView role;
 
     private List<Drink> drinks = new ArrayList<>();
 
@@ -43,11 +43,11 @@ public class UserView {
         this.email = email;
     }
 
-    public String getRole() {
+    public RoleView getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(RoleView role) {
         this.role = role;
     }
 

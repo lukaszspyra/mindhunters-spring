@@ -38,7 +38,7 @@ public class IngredientService {
         if (ingredient == null) {
             ingredient = new Ingredient();
             ingredient.setName(name);
-            ingredientRepository.save(ingredient);
+            ingredient = ingredientRepository.save(ingredient);
         }
         return ingredient;
 

@@ -29,11 +29,12 @@ public class CategoryService {
     }
 
     public Category getOrCreate(String name) {
+        LOGGER.debug("Get or create new category");
         Category category = categoryRepository.findByName(name);
         if (category == null) {
             category = new Category();
             category.setName(name);
-            categoryRepository.save(category);
+            category = categoryRepository.save(category);
         }
         return category;
     }

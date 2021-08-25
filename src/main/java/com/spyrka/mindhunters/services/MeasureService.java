@@ -17,7 +17,7 @@ public class MeasureService {
         if (measure == null) {
             measure = new Measure();
             measure.setQuantity(quantity);
-            measureRepository.save(measure);
+            measure = measureRepository.save(measure);
         }
         return measure;
     }

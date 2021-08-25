@@ -20,7 +20,13 @@ public class FullDrinkView {
 
     private List<DrinkIngredientView> drinkIngredientViews = new ArrayList<>();
 
+    private List<UserView> users = new ArrayList<>();
+
     private List<StatisticsView> statisticsViews = new ArrayList<>();
+
+    private Long parentId;
+
+    private String manageAction;
 
     private String image;
 
@@ -29,8 +35,6 @@ public class FullDrinkView {
     private boolean isApproved;
 
     private String confirmUserEmail;
-
-    private String manageAction;
 
     public String getManageAction() {
         return manageAction;
@@ -134,6 +138,22 @@ public class FullDrinkView {
 
     public void setStatisticsViews(List<StatisticsView> statisticsViews) {
         this.statisticsViews = statisticsViews;
+    }
+
+    public List<UserView> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserView> users) {
+        this.users = users;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
     @Override

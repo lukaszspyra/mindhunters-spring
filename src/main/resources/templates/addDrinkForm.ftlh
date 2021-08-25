@@ -140,9 +140,7 @@
 <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>-->
 <!--&lt;!&ndash; Third party plugin JS&ndash;&gt;-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<#--
-<script src="js/addDrinkForm.js"></script>
--->
+
 <!--&lt;!&ndash;&lt;!&ndash; Core theme JS&ndash;&gt;&ndash;&gt;-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script src="js/addDrinkForm.js"></script>

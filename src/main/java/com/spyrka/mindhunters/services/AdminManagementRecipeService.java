@@ -186,12 +186,9 @@ public class AdminManagementRecipeService {
         Drink approvedSubmittedUpdate = drinkRepository.findById(updatedDrinkId).orElseThrow();
         Long parentId = approvedSubmittedUpdate.getParentId();
         deleteDrinkById(parentId);
-
         approvedSubmittedUpdate.setApproved(true);
         approvedSubmittedUpdate.setManageAction(null);
-        approvedSubmittedUpdate.setConfirmUserEmail(null);
         approvedSubmittedUpdate.setParentId(null);
-
         return drinkRepository.save(approvedSubmittedUpdate);
     }
 

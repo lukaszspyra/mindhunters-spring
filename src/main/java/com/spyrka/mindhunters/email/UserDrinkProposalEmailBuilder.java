@@ -38,7 +38,7 @@ public class UserDrinkProposalEmailBuilder{
 
         stringBuilder.append("</ul>" +
                 "      <p>All the beast,<br>" +
-                "Mindhunters Virtual Bartender<br>http://mindhunters.jjdd9.is-academy.pl/</p>\n" +
+                "Mindhunters Virtual Bartender</p>\n" +
                 "    </div>\n" +
                 "  </body>\n" +
                 "</html>");

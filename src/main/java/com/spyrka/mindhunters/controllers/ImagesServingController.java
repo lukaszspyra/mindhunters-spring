@@ -10,22 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
+/**
+ * Serves pictures from the server
+ */
 @Controller
 @RequestMapping("/pictures/*")
-public class ImagesController {
+public class ImagesServingController {
 
     @Autowired
     ImageUploadProcessor fileUploadProcessor;
 
     @GetMapping
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-        String filename = URLDecoder.decode(req.getPathInfo().substring(1), StandardCharsets.UTF_8);
-        File file = new File(fileUploadProcessor.getUploadImageFilesPath(), filename);
+        String requestURI = req.getRequestURI();
+        String fileName = requestURI.substring(10);
+        File file = new File(fileUploadProcessor.getUploadImageFilesPath(), fileName);
         resp.setHeader("Content-Type", Files.probeContentType(file.toPath()));
         resp.setHeader("Content-Length", String.valueOf(file.length()));
         resp.setHeader("Content-Disposition", "inline; filename=\"" + file.getName() + "\"");

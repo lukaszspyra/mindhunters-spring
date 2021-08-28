@@ -47,6 +47,6 @@ public class FileUploadProcessor {
                         .getContextClassLoader().getResource(SETTINGS_FILE))
                 .openStream());
         LOGGER.debug("Loaded setting with upload path for images into Properties");
-        return settings.getProperty("Upload.Path.IMAGE");
+        return settings.getProperty("Upload.Path.JSON");
     }
 }

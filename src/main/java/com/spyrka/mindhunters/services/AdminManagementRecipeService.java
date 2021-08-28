@@ -2,6 +2,7 @@ package com.spyrka.mindhunters.services;
 
 
 import com.spyrka.mindhunters.models.*;
+import com.spyrka.mindhunters.repositories.DrinkIngredientRepository;
 import com.spyrka.mindhunters.repositories.DrinkRepository;
 import com.spyrka.mindhunters.repositories.RatingRepository;
 import com.spyrka.mindhunters.repositories.StatisticsRepository;
@@ -22,9 +23,13 @@ import java.util.stream.Collectors;
 public class AdminManagementRecipeService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminManagementRecipeService.class.getName());
+    public static long NEW_API_ID = 1;
 
     @Autowired
     private DrinkRepository drinkRepository;
+
+    @Autowired
+    private DrinkIngredientRepository drinkIngredientRepository;
 
     @Autowired
     private StatisticsRepository statisticsRepository;
@@ -39,7 +44,10 @@ public class AdminManagementRecipeService {
     private RatingRepository ratingRepository;
 
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
+
+    @Autowired
+    private DrinkIngredientService drinkIngredientService;
 
     /**
      * Creates deep copy of existing drink, proposed by the user to be deleted.
@@ -59,8 +67,7 @@ public class AdminManagementRecipeService {
         drinkToBeDeleted.setCategory(existingDrink.getCategory());
         drinkToBeDeleted.setAlcoholStatus(existingDrink.getAlcoholStatus());
         drinkToBeDeleted.setRecipe(existingDrink.getRecipe());
-
-        existingDrink.setDrinkIngredients(copyDrinkIngredients(existingDrink, drinkToBeDeleted));
+        drinkToBeDeleted.setDrinkIngredients(copyDrinkIngredients(existingDrink, drinkToBeDeleted));
 
         drinkToBeDeleted.setParentId(id);
         drinkToBeDeleted.setManageAction("DELETE");
@@ -108,18 +115,20 @@ public class AdminManagementRecipeService {
      * @param approvedDrinkId for removal
      * @return removed drink
      */
+    @Transactional
     public Drink setApprovedDeleteDrink(long approvedDrinkId) {
         Drink approvedDrink = drinkRepository.findById(approvedDrinkId).orElseThrow();
-        drinkRepository.deleteIngredientsFromDrink(approvedDrinkId);
-        drinkRepository.delete(approvedDrink);
-
         Long parentIdTobeDeleted = approvedDrink.getParentId();
+        drinkIngredientRepository.deleteIngredientsFromDrink(approvedDrinkId);
+        deleteDrinkById(approvedDrinkId);
+
         deleteDrinkById(parentIdTobeDeleted);
 
         return approvedDrink;
     }
 
-    public void deleteDrinkById(Long idToBeDeleted) {
+
+    private void deleteDrinkById(Long idToBeDeleted) {
         Optional<Drink> optDrinkToBeDeleted = drinkRepository.findById(idToBeDeleted);
         if (optDrinkToBeDeleted.isEmpty()) {
             return;
@@ -132,71 +141,64 @@ public class AdminManagementRecipeService {
         }
         statisticsRepository.deleteStatisticsByDrink(drinkToBeDeleted);
         ratingRepository.findByDrinkId(idToBeDeleted).ifPresent(rating1 -> ratingRepository.delete(rating1));
-        drinkRepository.deleteIngredientsFromDrink(idToBeDeleted);
+        drinkIngredientRepository.deleteIngredientsFromDrink(idToBeDeleted);
         drinkRepository.delete(drinkToBeDeleted);
     }
 
-    @Transactional
-    public boolean addOrUpdateDrink(Long id, Drink submittedDrink) {
-        if (submittedDrink == null) {
-            return false;
-        }
-
-        Optional<Drink> optEditedDrink = drinkRepository.findById(id);
-        Drink editDrink;
-        if (optEditedDrink.isEmpty()) {
-            editDrink = new Drink();
-            editDrink.setManageAction("ADD");
-        } else {
-            editDrink = optEditedDrink.get();
-            editDrink.setManageAction("EDIT");
-        }
-
-        editDrink.setConfirmUserEmail(submittedDrink.getConfirmUserEmail());
-        editDrink.setDrinkName(submittedDrink.getDrinkName());
-        editDrink.setAlcoholStatus(submittedDrink.getAlcoholStatus());
-        editDrink.setImage(submittedDrink.getImage());
-        editDrink.setRecipe(submittedDrink.getRecipe());
-        LocalDateTime formatDateTime = LocalDateTime.now();
-        editDrink.setDate(formatDateTime);
-
+    private boolean prepareDrinkProposalForPersisting(Drink submittedDrink, String manageAction) {
+        submittedDrink.setManageAction(manageAction);
+        submittedDrink.setDate(LocalDateTime.now());
         Category category = categoryService.getOrCreate(submittedDrink.getCategory().getName());
-        editDrink.setCategory(category);
+        submittedDrink.setCategory(category);
+        submittedDrink.setDrinkId(String.valueOf(NEW_API_ID));
+        increaseApiId();
 
-        List<DrinkIngredient> drinkIngredientsList = copyDrinkIngredients(submittedDrink, editDrink);
-        editDrink.getDrinkIngredients().clear();//TODO: czy potrzebne? raczej nie
-        editDrink.setDrinkIngredients(drinkIngredientsList);
-
-        editDrink.setApproved(false);
-        drinkRepository.save(editDrink);
+        List<DrinkIngredient> drinkIngredients = drinkIngredientService.getOrCreate(submittedDrink);
+        submittedDrink.setDrinkIngredients(drinkIngredients);
+        drinkRepository.save(submittedDrink);
         return true;
     }
 
+    @Transactional
+    public boolean updateDrink(Long existingId, Drink submittedDrink) {
+        Optional<Drink> optExistingDrink = drinkRepository.findById(existingId);
+        if (optExistingDrink.isEmpty() || submittedDrink == null) {
+            return false;
+        }
+        submittedDrink.setParentId(existingId);
+        return prepareDrinkProposalForPersisting(submittedDrink, "EDIT");
+    }
+
+    public static void increaseApiId() {
+        NEW_API_ID++;
+    }
+
+    @Transactional
     public Drink approveNewDrinkCreation(long drinkId) {
         Drink drink = drinkRepository.findById(drinkId).orElseThrow();
         drink.setApproved(true);
-        drinkRepository.save(drink);
-        return drink;
+        drink.setManageAction(null);
+        return drinkRepository.save(drink);
     }
 
+    @Transactional
+    public Drink approveDrinkUpdate(long updatedDrinkId) {
+        Drink approvedSubmittedUpdate = drinkRepository.findById(updatedDrinkId).orElseThrow();
+        Long parentId = approvedSubmittedUpdate.getParentId();
+        deleteDrinkById(parentId);
 
-    public Drink approveDrinkEdit(long drinkId) {
-        Drink approvedEdit = drinkRepository.findById(drinkId).orElseThrow();
-        statisticsRepository.deleteStatisticsByDrink(approvedEdit);
-        drinkRepository.delete(approvedEdit);
+        approvedSubmittedUpdate.setApproved(true);
+        approvedSubmittedUpdate.setManageAction(null);
+        approvedSubmittedUpdate.setConfirmUserEmail(null);
+        approvedSubmittedUpdate.setParentId(null);
 
-        Long oldDrinkId = approvedEdit.getParentId();
-        deleteDrinkById(oldDrinkId);
-
-        approvedEdit.setApproved(true);
-        approvedEdit.setId(oldDrinkId);
-        drinkRepository.save(approvedEdit);
-        return approvedEdit;
+        return drinkRepository.save(approvedSubmittedUpdate);
     }
 
+    @Transactional
     public Drink rejectDrinkProposal(long drinkId) {
         Drink drink = drinkRepository.findById(drinkId).orElseThrow();
-        drinkRepository.delete(drink);
+        deleteDrinkById(drinkId);
         return drink;
     }
 }

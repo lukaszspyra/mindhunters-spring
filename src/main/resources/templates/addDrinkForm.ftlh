@@ -12,7 +12,7 @@
     <link href="/css/addDrinkForm.css" rel="stylesheet">
 
     <#--Adds favicon-->
-    <link rel="shortcut icon" href="/img/favicon.ico" >
+    <link rel="shortcut icon" href="/img/favicon.ico">
     <link rel="icon" href="/img/favicon.ico">
 
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
@@ -24,7 +24,8 @@
 
 <#include "navigation.ftlh">
 
-<form class="was-validated  " action="/drink-management" method="post" id="abc" enctype="multipart/form-data">
+<form class="was-validated" action="/drink-management/create" method="post" id="abc" enctype="multipart/form-data">
+
 
     <div class="container-fluid form-elements " style="width: 800px">
 
@@ -33,17 +34,20 @@
 
             <label>Input recipe data: </label>
 
-            <input name="name" type="text" class="form-control integerInput md-3 " id="field" placeholder="Insert name"
-                   required minlength="3">
+            <input name="drinkName" type="text" class="form-control integerInput md-3 " id="field"
+                   placeholder="Insert name"
+                   required minlength="3" maxlength="30">
             <div class="invalid-feedback alert alert-danger col-5">Input min. 3 chars</div>
 
         </div>
 
+        <#--ALCOHOL STATUS-->
+
         <div class="row justify-content-between" style="margin: 0px">
 
-            <div class="form-group md-3 col-5 " >
-                <select name="status" class="custom-select" required>
-                    <option value="">Alcohol status</option>
+            <div class="form-group md-3 col-5 ">
+                <select name="alcoholStatus" class="custom-select" required>
+                    <option value="${(drink.alcoholStatus)!}">${(drink.alcoholStatus)!}</option>
                     <option value="Alcoholic">Alcoholic</option>
                     <option value="Non-alcoholic">Non-alcoholic</option>
                     <option value="Optional">Optional</option>
@@ -51,8 +55,10 @@
                 <div class="invalid-feedback alert alert-danger">Select alcohol status</div>
             </div>
 
+            <#--CATEGORY-->
+
             <div class="form-group md-3 col-5 ">
-                <select name="category" class="custom-select" required>
+                <select name="category[name]" class="custom-select" required>
                     <option value="">Category</option>
                     <#list categories as category>
                         <option value="${category.name}">${category.name}</option>
@@ -64,30 +70,47 @@
         </div>
 
 
+        <#--RECIPE-->
+
+
         <div class="form-group col-12">
             <label for="exampleFormControlTextarea1">Input recipe:</label>
             <textarea name="recipe" class="form-control" id="exampleFormControlTextarea1" rows="5" required
-                      minlength="3"></textarea>
+                      minlength="3" maxlength="2000">${(drink.recipe)!}</textarea>
             <div class="invalid-feedback alert alert-danger col-5">Input min. 5 chars</div>
         </div>
 
 
-        <div class=" add-group  justify-content-between" >
+        <#--INGREDIENTS-->
 
-            <div class=" sidebar-list" >
+
+        <div class=" add-group  justify-content-between">
+            <div class=" sidebar-list">
+
+                <#--     <label>Input ingredients: </label>-->
                 <div class="row justify-content-between " id="ingrMeasure" style="margin: 0px">
 
-                    <div class=" md-3 col-5 " >
-                        <input type="text" required maxlength="20" minlength="2" name="ingredient" value="" placeholder="Ingredient..." class="form-control " aria-required="true"/>
+
+                    <div class=" md-3 col-5 ">
+                        <input type="text" required maxlength="20" minlength="2"
+                               name="drinkIngredients[0][ingredient[name]]"
+                               value=""
+                               placeholder="Ingredient..." class="form-control " aria-required="true"/>
                         <div class="invalid-feedback alert alert-danger">Input ingredient</div>
                     </div>
 
-                    <div class=" md-3 col-5">
-                        <input type="text" required maxlength="20" minlength="2" name="measure" value="" placeholder="Measure..." class="form-control "/>
+                    <#--   <label>Input quantity: </label>-->
+                    <div class=" md-3 col-5 ">
+                        <input type="text" required maxlength="20" minlength="2"
+                               name="drinkIngredients[0][measure[quantity]]"
+                               value=""
+                               placeholder="Measure..." class="form-control "/>
                         <div class="invalid-feedback alert alert-danger">Input measure</div>
                     </div>
 
-                    <a href="javascript:void(0);" class="add_button " id="remove_blue" title="Add field">
+
+                    <a href="javascript:void(0);" class="add_button col-1 " id="remove_blue"
+                       title="Add field">
                         <svg class="bi bi-plus-square-fill" id="remove_blue" width="1em" height="1em"
                              viewBox="0 0 16 16"
                              fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -95,27 +118,31 @@
                                   d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4a.5.5 0 0 0-1 0v3.5H4a.5.5 0 0 0 0 1h3.5V12a.5.5 0 0 0 1 0V8.5H12a.5.5 0 0 0 0-1H8.5V4z"/>
                         </svg>
                     </a>
-                    <br>
+
+
                 </div>
 
             </div>
-
         </div>
 
+        <#--        IMAGE-->
 
-        <div class="custom-file col-6 justify-content-between" style="padding-left: 15px; padding-right: 15px; margin: 0px">
+        <div class="custom-file col-6 justify-content-between"
+             style="padding-left: 15px; padding-right: 15px; margin: 0px">
             <input type="file" name="image" style="margin: auto"/>
         </div>
 
 
+        <#--BUTTON-->
         <div class=" my-3 col-5 justify-content-between">
-            <button type="button" class="btn btn-primary" name="save" value="save">
-                Save drink
+            <button type="submit" class="btn btn-primary" name="save" value="save" id="create_but">
+                Submit drink
             </button>
         </div>
 
 
     </div>
+
 </form>
 
 
@@ -143,7 +170,7 @@
 
 <!--&lt;!&ndash;&lt;!&ndash; Core theme JS&ndash;&gt;&ndash;&gt;-->
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.js"></script>
-<script src="js/addDrinkForm.js"></script>
+<script src="/js/addDrinkForm.js"></script>
 <#--
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 -->

@@ -100,7 +100,7 @@ $(document).ready(function () {
         '</div>' +
 
         '<div class=" md-3 col-5 ">' +
-        '<input type="text" required maxlength="20" minlength="2" name="drinkIngredients[' + x.toString().trim() +'][measure[quantity]]" value="" placeholder="Ingredient..." class="form-control"/>'+
+        '<input type="text" required maxlength="20" minlength="2" name="drinkIngredients[' + x.toString().trim() +'][measure[quantity]]" value="" placeholder="Quantity..." class="form-control"/>'+
         '<div class="invalid-feedback alert alert-danger">Input measure</div>\n' +
         '</div>' +
 

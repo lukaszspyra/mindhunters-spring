@@ -12,7 +12,7 @@
     <link href="/css/addDrinkForm.css" rel="stylesheet">
 
     <#--Adds favicon-->
-    <link rel="shortcut icon" href="/img/favicon.ico" >
+    <link rel="shortcut icon" href="/img/favicon.ico">
     <link rel="icon" href="/img/favicon.ico">
 
     <script src="https://kit.fontawesome.com/84fd5d585b.js" crossorigin="anonymous"></script>
@@ -37,7 +37,7 @@
 
                 <input name="drinkName" type="text" class="form-control integerInput md-3 " id="field"
                        placeholder="Insert name"
-                       required minlength="3" value="${(drink.drinkName)!}">
+                       required minlength="3" maxlength="30" value="${(drink.drinkName)!}">
                 <div class="invalid-feedback alert alert-danger col-5">Input min. 3 chars</div>
 
             </div>
@@ -76,7 +76,7 @@
             <div class="form-group col-12">
                 <label for="exampleFormControlTextarea1">Input recipe:</label>
                 <textarea name="recipe" class="form-control" id="exampleFormControlTextarea1" rows="5" required
-                          minlength="3">${(drink.recipe)!}</textarea>
+                          minlength="3" maxlength="2000">${(drink.recipe)!}</textarea>
                 <div class="invalid-feedback alert alert-danger col-5">Input min. 5 chars</div>
             </div>
 
@@ -91,6 +91,8 @@
 
                     <#list (drink.drinkIngredientViews)!>
                         <#items as drinkIngredientView>
+
+                        <#--     <label>Input ingredients: </label>-->
                             <div class="row justify-content-between " id="ingrMeasure" style="margin: 0px">
 
 
@@ -102,6 +104,7 @@
                                     <div class="invalid-feedback alert alert-danger">Input ingredient</div>
                                 </div>
 
+                                <#--   <label>Input quantity: </label>-->
                                 <div class=" md-3 col-5 ">
                                     <input type="text" required maxlength="20" minlength="2"
                                            name="drinkIngredients[${(drinkIngredientView?counter)-1}][measure[quantity]]"
@@ -110,15 +113,22 @@
                                     <div class="invalid-feedback alert alert-danger">Input measure</div>
                                 </div>
 
-                                <a href="javascript:void(0);" class="add_button col-1 " id="remove_blue"
-                                   title="Add field">
-                                    <svg class="bi bi-plus-square-fill" id="remove_blue" width="1em" height="1em"
-                                         viewBox="0 0 16 16"
-                                         fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                              d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4a.5.5 0 0 0-1 0v3.5H4a.5.5 0 0 0 0 1h3.5V12a.5.5 0 0 0 1 0V8.5H12a.5.5 0 0 0 0-1H8.5V4z"/>
-                                    </svg>
-                                </a>
+
+                                <#if (drinkIngredientView?counter) == 1>
+
+                                    <a href="javascript:void(0);" class="add_button col-1 " id="remove_blue"
+                                       title="Add field">
+                                        <svg class="bi bi-plus-square-fill" id="remove_blue" width="1em" height="1em"
+                                             viewBox="0 0 16 16"
+                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4a.5.5 0 0 0-1 0v3.5H4a.5.5 0 0 0 0 1h3.5V12a.5.5 0 0 0 1 0V8.5H12a.5.5 0 0 0 0-1H8.5V4z"/>
+                                        </svg>
+                                    </a>
+                                </#if>
+
+
+
                                 <#if (drinkIngredientView?counter) != 1>
                                     <a id="remove_blue" href="javascript:void(0);" class="remove_button col-1">
                                         <svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16"
@@ -135,6 +145,9 @@
 
                         </#items>
                     </#list>
+
+
+
 
                     <#if !(drink?has_content)>
 
@@ -176,6 +189,7 @@
 
             </div>
 
+
             <#--        IMAGE-->
 
             <#--            <div class="custom-file col-6 justify-content-between"-->
@@ -204,18 +218,18 @@
 
     </form>
 
-<#--    <form name="uploader" class="was-validated  " id="image_form" onsubmit="return false">-->
-<#--        <div class="custom-file col-6 justify-content-between"-->
-<#--             style="padding-left: 15px; padding-right: 15px; margin: 0px">-->
-<#--            <input type="file" name="image" style="margin: auto"/>-->
-<#--        </div>-->
-<#--        <div class=" my-3 col-5 justify-content-between">-->
-<#--            <button type="submit" class="btn btn-primary" name="image" value="save" id="submit_image_but"-->
-<#--                    action="/drink-management" method="post" enctype="multipart/form-data">-->
-<#--                Save drink-->
-<#--            </button>-->
-<#--        </div>-->
-<#--    </form>-->
+    <#--    <form name="uploader" class="was-validated  " id="image_form" onsubmit="return false">-->
+    <#--        <div class="custom-file col-6 justify-content-between"-->
+    <#--             style="padding-left: 15px; padding-right: 15px; margin: 0px">-->
+    <#--            <input type="file" name="image" style="margin: auto"/>-->
+    <#--        </div>-->
+    <#--        <div class=" my-3 col-5 justify-content-between">-->
+    <#--            <button type="submit" class="btn btn-primary" name="image" value="save" id="submit_image_but"-->
+    <#--                    action="/drink-management" method="post" enctype="multipart/form-data">-->
+    <#--                Save drink-->
+    <#--            </button>-->
+    <#--        </div>-->
+    <#--    </form>-->
 
 
 </div>

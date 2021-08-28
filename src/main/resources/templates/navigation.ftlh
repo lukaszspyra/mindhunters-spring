@@ -38,7 +38,7 @@
                         <li><a class="text-warning" href="/admin/statistics">Statistics</a></li>
                         <div class="dropdown-divider"></div>
 
-                        <li><a class="text-warning" href="/admin/to-approve-list">Drink to approve</a></li>
+                        <li><a class="text-warning" href="/admin/to-approve-list">Drinks to approve</a></li>
                         <div class="dropdown-divider"></div>
 
                         <li><a class="text-warning" href="/admin/page">Back up drinks upload</a></li>
@@ -67,7 +67,7 @@
                 <#if role??>
                     <#if role = "USER" || role = "ADMIN" || role = "SUPER_ADMIN">
                         <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="/favourites">Favourites</a>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="/drink-management">Drink management</a>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger text-warning" href="/drink-management/create">Drink creator</a>
                         </li>
                     </#if>
                 </#if>

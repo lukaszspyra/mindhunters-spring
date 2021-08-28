@@ -30,18 +30,18 @@
 
         <div class="row mx-2 my-2 justify-content-center">
 
-                        <span class="admin-btn-block vis-of-btn" id="admin-btn-block">
+<#--                        <span class="admin-btn-block vis-of-btn" id="admin-btn-block">-->
 
-                    <a class="btn btn-background  text-uppercase  text-warning btn-admin"
-                       id="btn-admin2" href="/admin/to-approve-list/add">Drinks created</a>
-                    <br>
-                    <a class="btn btn-background  text-uppercase  text-warning btn-admin"
-                       id="btn-admin2" href="/admin/to-approve-list/edit">Drinks edited</a>
-                    <br>
-                    <a class="btn btn-background  text-uppercase  text-warning btn-admin"
-                       id="btn-admin2" href="/admin/to-approve-list/delete">Drinks to be deleted</a>
-                    <br>
-                </span>
+<#--                    <a class="btn btn-background  text-uppercase  text-warning btn-admin"-->
+<#--                       id="btn-admin2" href="/admin/to-approve-list/add">Drinks created</a>-->
+<#--                    <br>-->
+<#--                    <a class="btn btn-background  text-uppercase  text-warning btn-admin"-->
+<#--                       id="btn-admin2" href="/admin/to-approve-list/edit">Drinks edited</a>-->
+<#--                    <br>-->
+<#--                    <a class="btn btn-background  text-uppercase  text-warning btn-admin"-->
+<#--                       id="btn-admin2" href="/admin/to-approve-list/delete">Drinks to be deleted</a>-->
+<#--                    <br>-->
+<#--                </span>-->
 
             <div class="col-12 col-md-8 col-lg-8 col-xl-8">
                 <ul class="list-unstyled  justify-content-center  ml-auto space_list  " id="ID03" >

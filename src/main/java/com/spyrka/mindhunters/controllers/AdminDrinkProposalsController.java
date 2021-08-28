@@ -2,10 +2,7 @@ package com.spyrka.mindhunters.controllers;
 
 
 import com.spyrka.mindhunters.context.ContextHolder;
-import com.spyrka.mindhunters.email.EmailSender;
-import com.spyrka.mindhunters.email.UserDrinkProposalEmailBuilder;
 import com.spyrka.mindhunters.models.dto.FullDrinkView;
-import com.spyrka.mindhunters.services.AdminManagementRecipeService;
 import com.spyrka.mindhunters.services.DrinkService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,16 +25,6 @@ public class AdminDrinkProposalsController {
 
     @Autowired
     private DrinkService drinkService;
-
-    @Autowired
-    private AdminManagementRecipeService adminManagementRecipeService;
-
-    @Autowired
-    private UserDrinkProposalEmailBuilder userDrinkProposalEmailBuilder;
-
-    @Autowired
-    private EmailSender emailSender;
-
 
     /**
      * Sends all proposals (delete, add, edit) to admin view
@@ -69,9 +56,7 @@ public class AdminDrinkProposalsController {
                 dataModel.put("drinkList", toApproveList);
             }
         }
-
         dataModel.put("url", "");
-
         model.addAllAttributes(dataModel);
         return "recipeToApproveList";
     }

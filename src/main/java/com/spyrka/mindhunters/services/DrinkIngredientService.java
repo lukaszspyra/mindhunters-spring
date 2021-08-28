@@ -22,6 +22,9 @@ public class DrinkIngredientService {
     public List<DrinkIngredient> getOrCreate(Drink submittedDrink) {
         List<DrinkIngredient> drinkIngredients = new ArrayList<>();
         for (DrinkIngredient submittedDrinkIngredient : submittedDrink.getDrinkIngredients()){
+            if(submittedDrinkIngredient == null){
+                continue;
+            }
             Ingredient ingredient = ingredientService.getOrCreate(submittedDrinkIngredient.getIngredient().getName());
             Measure measure = measureService.getOrCreate(submittedDrinkIngredient.getMeasure().getQuantity());
             DrinkIngredient drinkIngredient = new DrinkIngredient();

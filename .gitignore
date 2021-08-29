@@ -31,4 +31,5 @@ build/
 .vscode/
 
 src/main/resources/application.properties
+src/main/resources/email.properties
 src/main/resources/oauth.properties

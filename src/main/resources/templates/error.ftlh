@@ -24,24 +24,14 @@
 
 
 <div class="container-fluid" style="color:red; background-color: #1b1e21; text-align: center">
-    <label><h2>Our team is working hard to restore application server.
+    <label><h2>Something went wrong.<br> <a href="/">Home Page</a>
         </h2></label>
 </div>
 
 <div class="body part1-top" id="body part1-top" style="background-color: #1b1e21">
     <div class="container-fluid" id="part1-top">
         <div style="position: relative">
-            <img class="backGround" src="img/mindhunters.jpg" alt="background" id="glasses">
-            <div class="over-photo1">
-                <header class="masthead">
-                    <div class="container welcome-settings">
-                        <div class="masthead-subheading  text-warning glow " id="welcomeDiv"
-                             style=font-size:30px;text-align:center>
-                            Our team is working hard to restore the application.
-                        </div>
-                    </div>
-                </header>
-            </div>
+            <img class="backGround" src="/img/mindhunters.jpg" alt="background" id="glasses">
         </div>
     </div>
 </div>
@@ -51,8 +41,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-        crossorigin="anonymneiw iem jak wsatawilem u mnie footer to mi namiesal z ustawieniemous"></script>
+        crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-<script src="/js/homePage.js"></script>
 </body>
 </html>

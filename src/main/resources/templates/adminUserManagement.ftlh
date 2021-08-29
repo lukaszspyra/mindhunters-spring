@@ -72,7 +72,7 @@
 
         <#list users as user>
             <div class="row justify-content-center">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div>${user.id}</div>
                 </div>
 
@@ -80,12 +80,12 @@
                     <div>${user.name}</div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div>${user.email}</div>
                 </div>
 
                 <div class="col-md-3">
-                    <div>${user.role}</div>
+                    <div>${user.role.name}</div>
                 </div>
             </div>
         </#list>

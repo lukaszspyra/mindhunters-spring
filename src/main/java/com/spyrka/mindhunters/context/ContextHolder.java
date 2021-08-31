@@ -15,7 +15,6 @@ public class ContextHolder {
 
     private final HttpSession httpSession;
 
-
     public ContextHolder(HttpSession httpSession) {
         this.httpSession = httpSession;
     }
@@ -29,8 +28,8 @@ public class ContextHolder {
         return (String) httpSession.getAttribute(ADULT);
     }
 
-    public void setADULT(String ADULT) {
-        httpSession.setAttribute(ContextHolder.ADULT, ADULT);;
+    public void setADULT(String adult) {
+        httpSession.setAttribute(ContextHolder.ADULT, adult);
     }
 
     public String getName() {
@@ -46,9 +45,7 @@ public class ContextHolder {
     }
 
     private void setContext(UserView userView) {
-
         httpSession.setMaxInactiveInterval(1800);
-
         httpSession.setAttribute(NAME, userView.getName());
         httpSession.setAttribute(EMAIL, userView.getEmail());
         httpSession.setAttribute(ID, userView.getId());

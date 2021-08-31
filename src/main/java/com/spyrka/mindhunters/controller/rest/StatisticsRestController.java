@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Provides statistics for admin panel.
+ */
 @RestController
 @RequestMapping("/api/stats")
 public class StatisticsRestController {

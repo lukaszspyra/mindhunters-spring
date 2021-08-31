@@ -23,12 +23,21 @@ public class RatingRestController {
     @Autowired
     RatingService ratingService;
 
+    /**
+     * Receives rates of drink recipes. User can vote only once for particular recipe.
+     * This is achieved by creating cookies sent with response.
+     *
+     * @param drinkId
+     * @param rate from 1 to 5
+     * @param req
+     * @param res
+     * @return
+     */
     @PostMapping("/drinks/{drinkId}/rating/{rate}")
     public ResponseEntity<Object> rateDrink(@PathVariable("drinkId") long drinkId,
                                             @PathVariable("rate") double rate,
                                             HttpServletRequest req,
                                             HttpServletResponse res) {
-
         String ip = req.getRemoteAddr();
         if (isIpCookieEmpty(req)) {
             ratingService.updateRating(drinkId, rate);

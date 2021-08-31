@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Provides results of database search for {@link com.spyrka.mindhunters.model.Drink} and {@link com.spyrka.mindhunters.model.Ingredient}
+ *
+ * Results are used for livesearch implemented in JS.
+ *
+ */
 @RestController
 @RequestMapping("/api/search")
 public class LiveSearchRestController {

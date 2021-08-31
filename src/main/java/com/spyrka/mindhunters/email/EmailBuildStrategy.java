@@ -1,7 +1,7 @@
 package com.spyrka.mindhunters.email;
 
 
-import com.spyrka.mindhunters.models.dto.FullDrinkView;
+import com.spyrka.mindhunters.model.dto.FullDrinkView;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

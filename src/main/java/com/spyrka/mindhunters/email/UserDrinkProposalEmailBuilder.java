@@ -1,7 +1,7 @@
 package com.spyrka.mindhunters.email;
 
 
-import com.spyrka.mindhunters.models.Drink;
+import com.spyrka.mindhunters.model.Drink;
 import org.springframework.stereotype.Component;
 
 import java.time.format.DateTimeFormatter;

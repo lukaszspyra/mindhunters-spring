@@ -1,6 +1,6 @@
 package com.spyrka.mindhunters.jsonsupport;
 
-import com.spyrka.mindhunters.exceptions.JsonNotFound;
+import com.spyrka.mindhunters.exception.JsonNotFound;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

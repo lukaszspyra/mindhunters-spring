@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.spyrka.mindhunters.models.json.CategoryJson;
+import com.spyrka.mindhunters.model.json.CategoryJson;
 
 import java.io.IOException;
 

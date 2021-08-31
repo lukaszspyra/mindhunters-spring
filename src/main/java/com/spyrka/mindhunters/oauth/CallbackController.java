@@ -1,10 +1,10 @@
 package com.spyrka.mindhunters.oauth;
 
 import com.spyrka.mindhunters.context.ContextHolder;
-import com.spyrka.mindhunters.models.dto.UserGoogleView;
-import com.spyrka.mindhunters.models.dto.UserView;
-import com.spyrka.mindhunters.services.UserService;
-import com.spyrka.mindhunters.services.mappers.GoogleUserMapper;
+import com.spyrka.mindhunters.model.dto.UserGoogleView;
+import com.spyrka.mindhunters.model.dto.UserView;
+import com.spyrka.mindhunters.service.UserService;
+import com.spyrka.mindhunters.service.mapper.GoogleUserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spyrka.mindhunters.models.json.DrinkJson;
+import com.spyrka.mindhunters.model.json.DrinkJson;
 import org.springframework.stereotype.Component;
 
 import java.io.File;

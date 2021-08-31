@@ -1,6 +1,6 @@
 package com.spyrka.mindhunters.jsonsupport;
 
-import com.spyrka.mindhunters.models.json.CategoryJson;
+import com.spyrka.mindhunters.model.json.CategoryJson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

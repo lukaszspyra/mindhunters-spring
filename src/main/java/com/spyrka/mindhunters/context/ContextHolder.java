@@ -1,6 +1,6 @@
 package com.spyrka.mindhunters.context;
 
-import com.spyrka.mindhunters.models.dto.UserView;
+import com.spyrka.mindhunters.model.dto.UserView;
 
 import javax.servlet.http.HttpSession;
 import java.util.Optional;

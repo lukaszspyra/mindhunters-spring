@@ -13,13 +13,16 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Displays admin page for database back up upload
+ */
 @Controller
-public class AdminUploadController {
+public class AdminUploadPageController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AdminUploadController.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdminUploadPageController.class.getName());
 
     @GetMapping("/admin/page")
-    protected String doGet(Model model, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
+    protected String uploadPageView(Model model, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
         Map<String, Object> dataModel = new HashMap<>();
@@ -35,7 +38,7 @@ public class AdminUploadController {
         dataModel.put("role", contextHolder.getRole());
 
         model.addAllAttributes(dataModel);
-
+        LOGGER.debug("Accessed admin upload page");
         return "adminUploadPage";
     }
 }

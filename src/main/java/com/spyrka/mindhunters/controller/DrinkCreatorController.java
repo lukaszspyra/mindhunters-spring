@@ -26,11 +26,14 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Handles recipes creation from empty or existing form
+ */
 @Controller
 @RequestMapping("/drink-management")
-public class DrinkManagementController {
+public class DrinkCreatorController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DrinkManagementController.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(DrinkCreatorController.class.getName());
 
     @Autowired
     private DrinkService drinkService;
@@ -111,14 +114,13 @@ public class DrinkManagementController {
     /**
      * Receives new {@link Drink} proposal from recipe creating form
      *
-     * @param model
      * @param req
      * @param resp
      * @throws ServletException
      * @throws IOException
      */
     @PostMapping("/create")
-    protected void doPost(Model model, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ContextHolder contextHolder = new ContextHolder(req.getSession());
         Drink submittedDrink = new Drink();
 

@@ -83,7 +83,7 @@ public class AdminDrinkManagementController {
         return "recipeToApproveList";
     }
 
-        /**
+    /**
      * Approves or rejects new drinks proposition, based on the request parameter
      *
      * @param req
@@ -149,7 +149,7 @@ public class AdminDrinkManagementController {
      * @throws IOException
      */
     @PostMapping("/admin/to-approve-list/delete")
-    public void doPost(Model model, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void deleteDrink(Model model, HttpServletRequest req, HttpServletResponse resp) throws IOException {
         req.setCharacterEncoding("UTF-8");
 
         String idToApprove = req.getParameter("approve");

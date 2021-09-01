@@ -2,6 +2,7 @@ package com.spyrka.mindhunters.controller;
 
 
 import com.spyrka.mindhunters.context.ContextHolder;
+import com.spyrka.mindhunters.service.AdultVerificationService;
 import com.spyrka.mindhunters.service.SearchTypeService;
 import com.spyrka.mindhunters.service.UserService;
 import org.slf4j.Logger;
@@ -33,100 +34,40 @@ public class DrinkSearchController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private AdultVerificationService adultVerificationService;
+
     @GetMapping("/search")
-    protected String doGet(Model model, HttpServletRequest req,
+    protected String search(Model model, HttpServletRequest req,
                            HttpServletResponse resp) throws UnsupportedEncodingException {
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
 
-        Map<String, Object> dataModel = new HashMap<>();
-
-        dataModel = searchTypeService.listViewSearchType(req);
+        Map<String, Object> dataModel = searchTypeService.listViewSearchType(req);
 
         ContextHolder contextHolder = new ContextHolder(req.getSession());
         dataModel.put("name", contextHolder.getName());
         dataModel.put("role", contextHolder.getRole());
 
-
-        verifyAge18(req, resp, contextHolder);
-
-        setAdultFromCookies(req, contextHolder);
-
+        adultVerificationService.verifyAge18(req, resp, contextHolder);
+        adultVerificationService.setAdultFromCookies(req, contextHolder);
 
         if (contextHolder.getADULT() != null) {
             dataModel.put("adult", contextHolder.getADULT());
         }
 
         model.addAllAttributes(dataModel);
-
         return "recipeSearchList";
-    }
-
-    private void verifyAge18(HttpServletRequest req, HttpServletResponse resp, ContextHolder contextHolder) {
-        String adult = req.getParameter("adult");
-        String age18 = req.getParameter("age18");
-
-        if (adult != null) {
-
-            switch (adult) {
-
-                case "true":
-                    contextHolder.setADULT(adult);
-
-                    if (age18 != null) {
-
-                        createAdultCookie(resp, "true");
-
-                    }
-                    break;
-
-                case "false":
-
-                    contextHolder.setADULT(adult);
-
-                    if (age18 != null) {
-
-                        createAdultCookie(resp, "false");
-
-                    }
-
-                    break;
-            }
-        }
-    }
-
-    private void createAdultCookie(HttpServletResponse resp, String value) {
-        Cookie cookie = new Cookie("age18", value);
-        cookie.setMaxAge(60 * 60 * 24);
-        resp.addCookie(cookie);
-    }
-
-    private void setAdultFromCookies(HttpServletRequest req, ContextHolder contextHolder) {
-        Cookie[] c = req.getCookies();
-        if (c != null) {
-
-            final List<Cookie> age18s =
-                    Arrays.stream(c).filter(e -> e.getName().equalsIgnoreCase("age18")).collect(Collectors.toList());
-
-            if (!age18s.isEmpty()) {
-                contextHolder.setADULT(age18s.get(0).getValue());
-            }
-        }
     }
 
 
     @PostMapping("/search")
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
-
+    protected void addToFavourites(HttpServletRequest req, HttpServletResponse resp) {
         String drinkId = req.getParameter("drinkId");
-
         ContextHolder contextHolder = new ContextHolder(req.getSession());
         String email = contextHolder.getEmail();
-
         if (email != null && !email.isEmpty()) {
-
             userService.updateUserFavouriteDrinks(email, drinkId);
-
         }
     }
 

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Service
 public class AdultVerificationService {
 
-    public void createAdultCookie(HttpServletResponse resp, String value) {
+    private void createAdultCookie(HttpServletResponse resp, String value) {
         Cookie cookie = new Cookie("age18", value);
         cookie.setMaxAge(60 * 60 * 24);
         resp.addCookie(cookie);

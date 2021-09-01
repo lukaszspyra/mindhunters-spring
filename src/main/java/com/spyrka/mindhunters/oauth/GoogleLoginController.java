@@ -15,7 +15,7 @@ public class GoogleLoginController {
     private static final Logger LOGGER = LoggerFactory.getLogger(GoogleLoginController.class.getName());
 
     @GetMapping("/oauth_login")
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         LOGGER.info("Redirecting to Oauth2 Google");
         resp.sendRedirect("/oauth2callback");
     }

@@ -116,17 +116,15 @@ public class DrinkListController {
     @PostMapping(
             path = "/list"
     )
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) {
+    public void addToFavourites(HttpServletRequest req) {
 
         String drinkId = req.getParameter("drinkId");
 
         ContextHolder contextHolder = new ContextHolder(req.getSession());
         String email = contextHolder.getEmail();
-
         if (email != null && !email.isEmpty()) {
-
             userService.updateUserFavouriteDrinks(email, drinkId);
-
+            LOGGER.info("Added {}, to favourites of user: {}", drinkId, email);
         }
     }
 }

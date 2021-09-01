@@ -38,7 +38,7 @@ public class DrinkSearchController {
     private AdultVerificationService adultVerificationService;
 
     @GetMapping("/search")
-    protected String search(Model model, HttpServletRequest req,
+    public String search(Model model, HttpServletRequest req,
                            HttpServletResponse resp) throws UnsupportedEncodingException {
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
@@ -62,12 +62,13 @@ public class DrinkSearchController {
 
 
     @PostMapping("/search")
-    protected void addToFavourites(HttpServletRequest req, HttpServletResponse resp) {
+    public void addToFavourites(HttpServletRequest req, HttpServletResponse resp) {
         String drinkId = req.getParameter("drinkId");
         ContextHolder contextHolder = new ContextHolder(req.getSession());
         String email = contextHolder.getEmail();
         if (email != null && !email.isEmpty()) {
             userService.updateUserFavouriteDrinks(email, drinkId);
+            LOGGER.info("Added {}, to favourites of user: {}", drinkId, email);
         }
     }
 

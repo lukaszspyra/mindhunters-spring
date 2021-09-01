@@ -25,7 +25,7 @@ public class StatisticsController {
     private static final Logger LOGGER = LoggerFactory.getLogger(StatisticsController.class.getName());
 
     @GetMapping
-    protected String doGet(Model model, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
+    public String doGet(Model model, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=UTF-8");
         resp.setCharacterEncoding("UTF-8");

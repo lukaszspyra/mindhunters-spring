@@ -82,7 +82,7 @@ public class FavouriteDrinkListController {
         dataModel.put("maxPageSize", maxPage);
         dataModel.put("currentPage", currentPage);
         model.addAllAttributes(dataModel);
-
+        LOGGER.info("Favourites of user {} sent to view", email);
         return "favorites";
     }
 

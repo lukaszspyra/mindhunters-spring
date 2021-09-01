@@ -26,8 +26,6 @@ import java.util.stream.Collectors;
 @Controller
 public class SingleViewController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SingleViewController.class.getName());
-
     @Autowired
     private DrinkService drinkService;
 
@@ -45,7 +43,7 @@ public class SingleViewController {
 
 
     @GetMapping("/single-view")
-    protected String doGet(Model model, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
+    public String doGet(Model model, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
         final String idParam = req.getParameter("drink");

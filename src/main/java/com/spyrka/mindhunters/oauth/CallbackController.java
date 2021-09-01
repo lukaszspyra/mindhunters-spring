@@ -30,7 +30,7 @@ public class CallbackController {
     private GoogleUserMapper googleUserMapper;
 
     @GetMapping("/oauth2callback")
-    protected void onSuccess(HttpServletRequest req, HttpServletResponse resp, OAuth2AuthenticationToken token) throws IOException {
+    public void onSuccess(HttpServletRequest req, HttpServletResponse resp, OAuth2AuthenticationToken token) throws IOException {
         Map<String, Object> userDataFromGoogle = token.getPrincipal().getAttributes().entrySet()
                 .stream()
                 .filter(entry -> entry.getKey().equalsIgnoreCase("name") || entry.getKey().equalsIgnoreCase("email"))

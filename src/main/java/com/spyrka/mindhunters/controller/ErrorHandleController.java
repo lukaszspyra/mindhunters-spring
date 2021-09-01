@@ -13,9 +13,9 @@ import java.io.UnsupportedEncodingException;
  * Displays default view for error request
  */
 @Controller
-public class ErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
+public class ErrorHandleController implements org.springframework.boot.web.servlet.error.ErrorController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ErrorController.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(ErrorHandleController.class.getName());
 
     @GetMapping("/error")
     public String doGet(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {

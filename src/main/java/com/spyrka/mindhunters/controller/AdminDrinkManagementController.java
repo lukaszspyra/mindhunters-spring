@@ -35,6 +35,8 @@ public class AdminDrinkManagementController {
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminDrinkManagementController.class.getName());
     private static final String ACCEPTED = "accepted";
     private static final String REJECTED = "rejected";
+    private static final String UTF_8 = "UTF-8";
+    private static final String DRINK_PROPOSITION = "Drink proposition {}.";
 
     @Autowired
     private AdminManagementRecipeService adminManagementRecipeService;
@@ -58,9 +60,9 @@ public class AdminDrinkManagementController {
      * @throws UnsupportedEncodingException
      */
     @GetMapping("/admin/to-approve-list")
-    protected String doGet(Model model, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
+    public String doGet(Model model, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         resp.setContentType("text/html; charset=UTF-8");
-        req.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding(UTF_8);
 
         ContextHolder contextHolder = new ContextHolder(req.getSession());
 
@@ -92,20 +94,20 @@ public class AdminDrinkManagementController {
      */
     @PostMapping("/admin/to-approve-list/add")
     public void newDrink(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        req.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding(UTF_8);
 
         String idToCreate = req.getParameter("approve");
         String idToReject = req.getParameter("reject");
 
         if (idToCreate != null && !idToCreate.isBlank()) {
             Drink approvedDrink = adminManagementRecipeService.approveNewDrinkCreation(Long.parseLong(idToCreate));
-            LOGGER.info("Drink proposition {}.", ACCEPTED);
+            LOGGER.info(DRINK_PROPOSITION, ACCEPTED);
             sendEmailToAuthor(approvedDrink, ACCEPTED);
         }
 
         if (idToReject != null && !idToReject.isBlank()) {
             Drink rejectedDrink = adminManagementRecipeService.rejectDrinkProposal(Long.parseLong(idToReject));
-            LOGGER.info("Drink proposition {}.", REJECTED);
+            LOGGER.info(DRINK_PROPOSITION, REJECTED);
             sendEmailToAuthor(rejectedDrink, REJECTED);
         }
         resp.sendRedirect("/admin/to-approve-list");
@@ -121,20 +123,20 @@ public class AdminDrinkManagementController {
      */
     @PostMapping("/admin/to-approve-list/edit")
     public void updateDrink(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        req.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding(UTF_8);
 
         String idToApprove = req.getParameter("approve");
         String idToReject = req.getParameter("reject");
 
         if (idToApprove != null && !idToApprove.isBlank()) {
             Drink approvedDrink = adminManagementRecipeService.approveDrinkUpdate(Long.parseLong(idToApprove));
-            LOGGER.info("Drink proposition {}.", ACCEPTED);
+            LOGGER.info(DRINK_PROPOSITION, ACCEPTED);
             sendEmailToAuthor(approvedDrink, ACCEPTED);
         }
 
         if (idToReject != null && !idToReject.isBlank()) {
             Drink rejectedDrink = adminManagementRecipeService.rejectDrinkProposal(Long.parseLong(idToReject));
-            LOGGER.info("Drink proposition {}.", REJECTED);
+            LOGGER.info(DRINK_PROPOSITION, REJECTED);
             sendEmailToAuthor(rejectedDrink, REJECTED);
         }
         resp.sendRedirect("/admin/to-approve-list");
@@ -150,20 +152,20 @@ public class AdminDrinkManagementController {
      */
     @PostMapping("/admin/to-approve-list/delete")
     public void deleteDrink(Model model, HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        req.setCharacterEncoding("UTF-8");
+        req.setCharacterEncoding(UTF_8);
 
         String idToApprove = req.getParameter("approve");
         String idToReject = req.getParameter("reject");
 
         if (idToApprove != null && !idToApprove.isBlank()) {
             Drink approvedDrink = adminManagementRecipeService.setApprovedDeleteDrink(Long.parseLong(idToApprove));
-            LOGGER.info("Drink proposition {}.", ACCEPTED);
+            LOGGER.info(DRINK_PROPOSITION, ACCEPTED);
             sendEmailToAuthor(approvedDrink, ACCEPTED);
         }
 
         if (idToReject != null && !idToReject.isBlank()) {
             Drink rejectedDrink = adminManagementRecipeService.rejectDrinkProposal(Long.parseLong(idToReject));
-            LOGGER.info("Drink proposition {}.", REJECTED);
+            LOGGER.info(DRINK_PROPOSITION, REJECTED);
             sendEmailToAuthor(rejectedDrink, REJECTED);
         }
 

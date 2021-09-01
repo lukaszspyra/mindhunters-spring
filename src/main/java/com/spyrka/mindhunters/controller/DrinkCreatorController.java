@@ -120,7 +120,7 @@ public class DrinkCreatorController {
      * @throws IOException
      */
     @PostMapping("/create")
-    protected void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void create(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ContextHolder contextHolder = new ContextHolder(req.getSession());
         Drink submittedDrink = new Drink();
 

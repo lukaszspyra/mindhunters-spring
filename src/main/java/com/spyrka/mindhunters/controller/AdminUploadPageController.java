@@ -22,7 +22,7 @@ public class AdminUploadPageController {
     private static final Logger LOGGER = LoggerFactory.getLogger(AdminUploadPageController.class.getName());
 
     @GetMapping("/admin/page")
-    protected String uploadPageView(Model model, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
+    public String uploadPageView(Model model, HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException {
         resp.setContentType("text/html; charset=UTF-8");
         req.setCharacterEncoding("UTF-8");
         Map<String, Object> dataModel = new HashMap<>();

@@ -15,6 +15,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Generates statistics view
+ */
 @Controller
 @RequestMapping("/admin/statistics")
 public class StatisticsController {

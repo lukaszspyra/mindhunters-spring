@@ -12,13 +12,13 @@
 
     <groupId>com.spyrka</groupId>
     <artifactId>mindhunters-spring</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
     <name>mindhunters-spring</name>
     <description>Mindhunters virtual bartender application</description>
 
     <properties>
-        <java.version>16</java.version>
+        <java.version>15</java.version>
         <lombok.version>1.18.20</lombok.version>
         <apache.httpcomponents>4.5.12</apache.httpcomponents>
         <apache.commons.lang3>3.10</apache.commons.lang3>
